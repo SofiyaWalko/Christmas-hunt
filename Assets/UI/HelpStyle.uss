@@ -1,0 +1,26 @@
+.interact-hint {
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+    pointer-events: none;
+    width: 100%;
+}
+
+.interact-hint.visible {
+    opacity: 1;
+}
+
+.interact-text {
+    background-color: rgba(15, 23, 42, 0.9);
+    color: #e2e8f0;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 18px;
+    -unity-font-style: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    border: 2px solid #475569;
+    white-space: nowrap;
+}

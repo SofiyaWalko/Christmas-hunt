@@ -1,0 +1,48 @@
+.inventory-panel {
+    display: none;       
+}
+
+.slots-container {
+    flex-grow: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.inventory-slot {
+    width: 64px;
+    height: 64px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin: 4px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.slot-quantity-label {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    -unity-font-style: bold;
+    color: white;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: black;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 4px 8px;
+    border-radius: 3px;
+}
+
+.unity-progress-bar__progress {
+    background-color: green;
+    border-radius: 10px;
+}
+.unity-progress-bar__background {
+    background-color: white;
+    border-radius: 10px;
+}
+.unity-progress-bar__title {
+    display: none;
+}
