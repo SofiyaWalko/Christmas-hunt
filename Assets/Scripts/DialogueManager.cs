@@ -21,12 +21,17 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); }
-        else { Instance = this; }
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         sentences = new Queue<string>();
     }
-    
 
     public void Initialize(VisualElement rootElement)
     {
@@ -34,7 +39,6 @@ public class DialogueManager : MonoBehaviour
         nameText = rootElement.Q<Label>("character-name");
         sentenceText = rootElement.Q<Label>("sentence-text");
         continueButton = rootElement.Q<Button>("continue-button");
-
 
         continueButton.clicked += DisplayNextSentence;
         dialogueBox.style.display = DisplayStyle.None;
@@ -68,24 +72,38 @@ public class DialogueManager : MonoBehaviour
         OnDialogueEnd?.Invoke(currentDialogueID);
     }
 
-
     public void StartDialogue(Dialogue dialogue)
     {
         currentDialogueID = dialogue.dialogueID;
         OnDialogueStart?.Invoke(currentDialogueID);
 
-
         dialogueBox.style.display = DisplayStyle.Flex;
         nameText.text = dialogue.characterName;
-    
+
         sentences.Clear();
-        foreach (string sentence in dialogue.sentences)
+        // Выбираем набор фраз в зависимости от наличия stat'ов у игрока
+        bool useAlt = false;
+        if (
+            dialogue.altSentences != null
+            && dialogue.altSentences.Length > 0
+            && dialogue.requiredStatCount > 0
+        )
         {
-            sentences.Enqueue(sentence);
+            if (InventoryManager.Instance != null && InventoryManager.Instance.HasStat())
+            {
+                var ss = InventoryManager.Instance.statSlot;
+                if (ss != null && ss.quantity >= dialogue.requiredStatCount)
+                    useAlt = true;
+            }
         }
 
+        var chosen = useAlt ? dialogue.altSentences : dialogue.sentences;
+        if (chosen != null)
+        {
+            foreach (string sentence in chosen)
+                sentences.Enqueue(sentence);
+        }
 
         DisplayNextSentence();
     }
-
 }

@@ -1,13 +1,14 @@
 using System.Collections;
-using UnityEngine;
 using Ink.Runtime;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class InkDialogueManager : MonoBehaviour
 {
     public static InkDialogueManager Instance { get; private set; }
 
-    [SerializeField] public TextAsset inkJSON;
+    [SerializeField]
+    public TextAsset inkJSON;
     private Story inkStory;
 
     // UI элементы
@@ -21,10 +22,10 @@ public class InkDialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this) 
-        { 
-            Destroy(gameObject); 
-            return; 
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
@@ -48,18 +49,26 @@ public class InkDialogueManager : MonoBehaviour
         {
             continueButton.clicked += ContinueDialogue;
         }
-        
+
         HideDialogue();
-        
+
         Debug.Log("InkDialogueManager UI initialized successfully!");
     }
 
-    public void StartDialogue(TextAsset inkJSONAsset = null)
+    public void StartDialogue(TextAsset inkJSONAsset = null, int requiredStatCount = 0)
     {
         Debug.Log("=== StartDialogue вызван ===");
-        
+
         TextAsset jsonToUse = inkJSONAsset != null ? inkJSONAsset : inkJSON;
-        
+
+        if (jsonToUse == null)
+        {
+            Debug.LogError(
+                "Нет Ink JSON для запуска диалога (jsonToUse == null). Укажите файл в DialogueTrigger или в InkDialogueManager. Прервано."
+            );
+            return;
+        }
+
         Debug.Log($"Используем Ink файл: {jsonToUse.name}");
 
         try
@@ -67,10 +76,36 @@ public class InkDialogueManager : MonoBehaviour
             Debug.Log("Создание Story...");
             inkStory = new Story(jsonToUse.text);
             Debug.Log($"Story создана. canContinue: {inkStory.canContinue}");
-            
+
+            // Перед началом диалога установим переменные, которые могут понадобиться в ink
+            int statCount = 0;
+            if (InventoryManager.Instance != null && InventoryManager.Instance.HasStat())
+            {
+                var ss = InventoryManager.Instance.statSlot;
+                if (ss != null)
+                    statCount = ss.quantity;
+            }
+
+            try
+            {
+                inkStory.variablesState["statCount"] = statCount;
+                inkStory.variablesState["hasStat"] = (statCount > 0);
+                if (requiredStatCount > 0)
+                {
+                    inkStory.variablesState["hasEnoughStats"] = (statCount >= requiredStatCount);
+                }
+                Debug.Log(
+                    $"Ink variables set: statCount={statCount}, hasStat={(statCount > 0)}, hasEnoughStats={(requiredStatCount > 0 ? (statCount >= requiredStatCount).ToString() : "n/a")} "
+                );
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning($"Не удалось установить переменные Ink: {e.Message}");
+            }
+
             dialogueBox.style.display = DisplayStyle.Flex;
             Debug.Log("Dialogue box показан");
-            
+
             ContinueDialogue();
         }
         catch (System.Exception e)
@@ -81,20 +116,17 @@ public class InkDialogueManager : MonoBehaviour
 
     private void ContinueDialogue()
     {
-        Debug.Log($"ContinueDialogue. canContinue: {inkStory?.canContinue}");
-
         if (inkStory.canContinue)
         {
             string text = inkStory.Continue();
-            
+
             // Парсим цвета ДО показа
             text = ParseColors(text.Trim());
-            
             if (!string.IsNullOrEmpty(text))
             {
                 RefreshUI(text);
             }
-            else 
+            else
             {
                 // Пустая строка - продолжаем
                 ContinueDialogue();
@@ -116,31 +148,33 @@ public class InkDialogueManager : MonoBehaviour
         {
             StopCoroutine(typingCoroutine);
         }
-        
+
         typingCoroutine = StartCoroutine(TypeSentence(text));
     }
 
     private IEnumerator TypeSentence(string sentence)
     {
         sentenceText.text = "";
-        
+
         // Простая печать (игнорируем теги для скорости)
         bool insideTag = false;
-        
+
         foreach (char letter in sentence)
         {
-            if (letter == '<') insideTag = true;
-            
+            if (letter == '<')
+                insideTag = true;
+
             sentenceText.text += letter;
-            
-            if (letter == '>') insideTag = false;
-            
+
+            if (letter == '>')
+                insideTag = false;
+
             if (!insideTag)
             {
                 yield return new WaitForSeconds(0.03f);
             }
         }
-        
+
         typingCoroutine = null;
         ShowChoicesOrEnd();
     }
@@ -151,9 +185,8 @@ public class InkDialogueManager : MonoBehaviour
 
         if (inkStory.currentChoices.Count > 0)
         {
-            Debug.Log($"Показываем {inkStory.currentChoices.Count} выборов");
             continueButton.style.display = DisplayStyle.None;
-            
+
             foreach (Choice choice in inkStory.currentChoices)
             {
                 CreateChoiceButton(choice);
@@ -161,12 +194,10 @@ public class InkDialogueManager : MonoBehaviour
         }
         else if (inkStory.canContinue)
         {
-            Debug.Log("Показываем кнопку Continue");
             continueButton.style.display = DisplayStyle.Flex;
         }
         else
         {
-            Debug.Log("Диалог завершён");
             StartCoroutine(CloseDialogueAfterDelay(2f));
         }
     }
@@ -176,7 +207,6 @@ public class InkDialogueManager : MonoBehaviour
         Button btn = new Button() { text = choice.text };
         btn.clicked += () =>
         {
-            Debug.Log($"Выбран вариант: {choice.text}");
             inkStory.ChooseChoiceIndex(choice.index);
             ContinueDialogue();
         };
@@ -187,8 +217,8 @@ public class InkDialogueManager : MonoBehaviour
     private string ParseColors(string text)
     {
         return text.Replace("#c:yellow", "<color=#FFD700>")
-                   .Replace("#c:green", "<color=#90EE90>")
-                   .Replace("#c:red", "<color=#FFB6C1>");
+            .Replace("#c:green", "<color=#90EE90>")
+            .Replace("#c:red", "<color=#FFB6C1>");
     }
 
     private IEnumerator CloseDialogueAfterDelay(float delay)
@@ -203,12 +233,12 @@ public class InkDialogueManager : MonoBehaviour
         {
             dialogueBox.style.display = DisplayStyle.None;
         }
-        
+
         if (choicesContainer != null)
         {
             choicesContainer.Clear();
         }
-        
+
         inkStory = null;
     }
 
@@ -234,8 +264,8 @@ public class InkDialogueManager : MonoBehaviour
         if (inkStory != null)
         {
             try
-                {
-                    inkStory.variablesState[variableName] = value;
+            {
+                inkStory.variablesState[variableName] = value;
             }
             catch (System.Exception e)
             {
