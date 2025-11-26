@@ -749,14 +749,9 @@ MonoBehaviour:
   dialogue:
     dialogueID: 1
     characterName: "\u0428\u0438\u0448\u043A\u0430"
-    sentences:
-    - "\u041F\u0438-\u043F\u0438! \u0421 \u041D\u043E\u0432\u044B\u043C \u0413\u043E\u0434\u043E\u043C!"
-    - "\u0423\u0440\u0430! \u0412\u0441\u0451 \u043D\u0430\u0448\u0451\u043B! \u0421\u043F\u0430\u0441\u0438\u0431\u043E!"
-    - "  \u0417\u0430 \u043F\u043E\u043C\u043E\u0449\u044C \u0434\u0430\u0440\u044E
-      \u0432\u043E\u043B\u0448\u0435\u0431\u043D\u0443\u044E \u0441\u043D\u0435\u0436\u0438\u043D\u043A\u0443!   
-      \u0417\u0430 \u043F\u043E\u043C\u043E\u0449\u044C \u0434\u0430\u0440\u044E
-      \u0432\u043E\u043B\u0448\u0435\u0431\u043D\u0443\u044E \u0441\u043D\u0435\u0436\u0438\u043D\u043A\u0443! "
+    requiredStatCount: 0
   inkJSON: {fileID: 4900000, guid: 0e645e78f044ccca894c5a48cdd3495f, type: 3}
+  useRequiredStatCountForInk: 1
 --- !u!136 &184374250
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -862,6 +857,7 @@ GameObject:
   - component: {fileID: 418814764}
   - component: {fileID: 418814763}
   - component: {fileID: 418814765}
+  - component: {fileID: 418814766}
   m_Layer: 5
   m_Name: InGameUI
   m_TagString: Untagged
@@ -919,6 +915,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca233d30ff0eee41a1ebc2626cdf4d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUIController
+--- !u!114 &418814766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418814762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f722069be9faf01a514e9b73ca45ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeathMenuManager
 --- !u!1 &444683291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,6 +1147,7 @@ GameObject:
   - component: {fileID: 694248413}
   - component: {fileID: 694248412}
   - component: {fileID: 694248416}
+  - component: {fileID: 694248417}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1283,6 +1292,19 @@ MonoBehaviour:
   maxHealth: 0
   maxStamina: 100
   staminaRegenRate: 10
+--- !u!114 &694248417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694248410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 824cffc8859d6dffe9296066dffb96c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerFallHandler
+  fallThreshold: -200
 --- !u!1 &796512678
 GameObject:
   m_ObjectHideFlags: 0
@@ -2407,6 +2429,9 @@ MonoBehaviour:
   inventorySize: 12
   rewardSlot:
     item: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
+    quantity: 0
+  statSlot:
+    item: {fileID: 11400000, guid: 149673d233555a785ad21fea1990fec2, type: 2}
     quantity: 0
 --- !u!4 &1794405711
 Transform:

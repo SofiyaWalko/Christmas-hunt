@@ -124,4 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
-  rewardItem: {fileID: 0}
+  rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}

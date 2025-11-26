@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    public static event Action OnDeath;
+
     //События
     public static event Action<int, int> OnHealthChanged;
     public static event Action<float, float> OnStaminaChanged; 
@@ -60,7 +62,7 @@ public class CharacterStats : MonoBehaviour
     private void Die()
     {
         Debug.Log(transform.name + " died.");
-        
+        OnDeath?.Invoke();
     }
 
     //STAMINA
