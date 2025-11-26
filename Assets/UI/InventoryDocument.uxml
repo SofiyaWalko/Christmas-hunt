@@ -1,6 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/InventoryStyles.uss?fileID=7433441132597879392&amp;guid=18a8bbbef12a55642ab5ee0460e84452&amp;type=3#InventoryStyles" />
-    <Style src="project://database/Assets/UI/DialogueStyle.uss?fileID=7433441132597879392&amp;guid=a29d5a486bee889c890ad8b7c502430a&amp;type=3#DialogueStyle" />
     <Style src="project://database/Assets/UI/HelpStyle.uss?fileID=7433441132597879392&amp;guid=2408c727a0ae3bb9183223319cc0283b&amp;type=3#HelpStyle" />
     <Style src="project://database/Assets/UI/InkDialogueStyle.uss?fileID=7433441132597879392&amp;guid=f422a8cae2e64d6d94778132e1d66925&amp;type=3#InkDialogueStyle" />
     <ui:GroupBox style="justify-content: center; align-items: flex-start; align-self: auto; align-content: auto; flex-direction: row;">
@@ -31,10 +30,5 @@
         <ui:Label name="ink-sentence-text" text="Текст диалога..." style="font-size: 16px; color: rgb(255, 255, 255); white-space: normal; margin-bottom: 15px;" />
         <ui:VisualElement name="ink-choices-container" style="flex-direction: column; margin-top: 10px;" />
         <ui:Button name="ink-continue-button" text="Продолжить ➤" style="margin-top: 10px; padding: 10px; background-color: rgb(70, 130, 180); color: white; border-radius: 5px; font-size: 14px; -unity-font-style: bold; display: flex;" />
-    </ui:VisualElement>
-    <ui:VisualElement name="dialogue-box" enabled="true" class="dialogue-box" style="flex-grow: 1; bottom: 33px; left: -6px; position: relative; align-self: center; align-content: center; height: 20px; display: none; background-size: 100px 100px; background-color: rgba(164, 164, 212, 0.4); width: 400px; min-width: 0; min-height: 0; max-height: 150px; max-width: 350px; top: 20px; padding-top: 5px; padding-bottom: 5px; padding-right: 5px; padding-left: 5px;">
-        <ui:Label text="Label" name="character-name" style="flex-wrap: wrap; width: 300px; align-self: center; align-items: center; -unity-text-align: upper-center;" />
-        <ui:Label text="Label" name="sentence-text" style="width: 300px; white-space: normal;" />
-        <ui:Button text="Button" name="continue-button" />
     </ui:VisualElement>
 </ui:UXML>
