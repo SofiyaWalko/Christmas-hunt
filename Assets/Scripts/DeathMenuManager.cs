@@ -55,18 +55,18 @@ public class DeathMenuManager : MonoBehaviour
         {
             deathMenuContainer.style.display = DisplayStyle.Flex;
             
-            // Optional: Pause the game or disable controls here if needed
-            // Time.timeScale = 0f; 
+            // Pause the game
+            Time.timeScale = 0f; 
         }
     }
 
     private void OnRestartClicked()
     {
+        // Reset time scale before reloading
+        Time.timeScale = 1f;
+
         // Reload the current scene
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
-        
-        // Reset time scale if it was paused
-        // Time.timeScale = 1f;
     }
 }
