@@ -17,12 +17,12 @@ public class PlayerController : MonoBehaviour
     [Header("Gravity & Jump")]
     public float gravity = -5.0f;
     public float jumpHeight = 5f;
-    private Vector3 playerVelocity; // Эта переменная будет хранить нашу вертикальную скорость
-    private bool isGrounded; // Эта переменная будет показывать, на земле ли персонаж
+    private Vector3 playerVelocity; 
+    private bool isGrounded; 
 
     [Header("Ground Check")]
     public LayerMask groundMask;
-    public float maxSlopeAngle = 45f; // Максимальный угол склона, на котором персонаж может стоять
+    public float maxSlopeAngle = 45f;
 
     [Header("Interaction")]
     public float interactionDistance = 2f;
@@ -45,34 +45,48 @@ public class PlayerController : MonoBehaviour
     private IInteractable currentInteractable;
     public static event System.Action<string> OnInteractableFocusChanged;
 
+
+    // <<< ADD: Переменные для платформы
+    private Transform currentPlatform;
+    private Vector3 lastPlatformPos;
+    // >>>
+
+
     private void Awake()
     {
-        // Получаем ссылки на компоненты для производительности
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        // Находим главную камеру в сцене
         cameraTransform = Camera.main.transform;
-
         stats = GetComponent<CharacterStats>();
     }
-
+    
     // Update вызывается каждый кадр
     void Update()
     {
-        // Проверяем землю и угол склона. Этот метод теперь устанавливает isGrounded.
         GroundCheck();
-        // Сначала обрабатываем горизонтальное движение (ходьба, поворот)
         HandleHorizontalMovement();
-        // Затем обрабатываем вертикальное движение (гравитация, прыжок)
         HandleGravity();
         HandleSprint();
-        // В конце обновляем анимацию
         HandleAnimation();
-
         CheckInteractionFocus();
+
+        // <<< ADD: если не на земле — перестаём ехать с платформой
+        if (!isGrounded)
+        {
+            if (currentPlatform != null)
+            {
+                TriggeredMovingPlatform platform = currentPlatform.GetComponent<TriggeredMovingPlatform>();
+                if (platform != null)
+                    platform.Deactivate();
+            }
+        
+            currentPlatform = null;
+        }
+        // >>>
     }
 
-    // Этот метод вызывается компонентом Player Input при изменении действия "Move"
+
+    // Движение
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -80,11 +94,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        // Мы выполним прыжок, только если персонаж на земле
         if (isGrounded)
         {
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            animator.SetTrigger("Jump"); // Вызываем анимацию прыжка
+            animator.SetTrigger("Jump");
         }
     }
 
@@ -109,9 +122,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     private void GroundCheck()
     {
-        // Используем SphereCast для большей надежности на краях
         float sphereRadius = controller.radius;
         Vector3 sphereOrigin = transform.position + controller.center;
 
@@ -126,8 +139,8 @@ public class PlayerController : MonoBehaviour
             )
         )
         {
-            // Vector3.Angle() вычисляет угол между двумя векторами.
             float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
+
 
             // Если угол меньше допустимого, мы считаемся "на земле"
             if (slopeAngle <= maxSlopeAngle)
@@ -137,13 +150,14 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+
         // Если луч ничего не нашел или угол слишком крутой, мы в воздухе.
         isGrounded = false;
     }
 
+
     private void HandleGravity()
     {
-        // Логика сброса скорости теперь внутри GroundCheck, так что здесь только гравитация
         playerVelocity.y += gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
@@ -154,7 +168,8 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Speed", speedValue, 0.1f, Time.deltaTime);
         animator.SetBool("IsGrounded", isGrounded);
     }
-
+    
+    
     private void CheckInteractionFocus()
     {
         Vector3 rayOrigin = interactionRayPoint.position;
@@ -175,23 +190,20 @@ public class PlayerController : MonoBehaviour
             newInteractable = hit.collider.GetComponent<IInteractable>();
         }
 
-        // ← КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: Проверяем, жив ли currentInteractable!
         if (currentInteractable != null)
         {
             var mb = currentInteractable as MonoBehaviour;
             if (mb == null || mb.gameObject == null || !mb.gameObject.activeInHierarchy)
             {
-                currentInteractable = null; // Сбрасываем "мёртвую" ссылку
-                OnInteractableFocusChanged?.Invoke(""); // Очищаем подсказку
+                currentInteractable = null;
+                OnInteractableFocusChanged?.Invoke("");
             }
         }
 
-        // ← Безопасное сравнение
         if (newInteractable != currentInteractable)
         {
             currentInteractable = newInteractable;
 
-            // ← Безопасно получаем текст
             string hintText = "";
             if (newInteractable != null)
             {
@@ -205,20 +217,20 @@ public class PlayerController : MonoBehaviour
             OnInteractableFocusChanged?.Invoke(hintText);
         }
     }
+    
 
     public void OnInteract(InputValue value)
     {
-        if (!value.isPressed)
-            return; // Только при нажатии (не удержании)
+        if (!value.isPressed) return;
 
-        // ← КЛЮЧЕВОЕ: СБРАСЫВАЕМ ФОКУС СРАЗУ!
         if (currentInteractable != null)
         {
-            currentInteractable.Interact(); // Вызываем Interact() ТОЛЬКО РАЗ!
-            OnInteractableFocusChanged?.Invoke(""); // Сбрасываем подсказку
-            currentInteractable = null; // ← ОЧИЩАЕМ ССЫЛКУ!
+            currentInteractable.Interact();
+            OnInteractableFocusChanged?.Invoke("");
+            currentInteractable = null;
         }
     }
+
 
     public void OnSprint(InputValue value)
     {
@@ -227,34 +239,63 @@ public class PlayerController : MonoBehaviour
 
     private void HandleSprint()
     {
-        // Если персонаж не двигается, сбрасываем спринт полностью
         if (moveInput.magnitude <= 0.1f)
         {
             isSprinting = false;
-            sprintButtonHeld = false; // ← КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: сбрасываем флаг удержания
+            sprintButtonHeld = false;
             stats.RegenerateStamina(stats.staminaRegenRate);
             return;
         }
 
-        // Можно спринтовать, только если есть выносливость и игрок двигается
         if (sprintButtonHeld)
         {
-            // Пытаемся потратить стамину
             if (stats.UseStamina(staminaUsePerSecond * Time.deltaTime))
             {
                 isSprinting = true;
             }
             else
             {
-                // стамина закончилась
                 isSprinting = false;
             }
         }
         else
         {
-            // кнопка не зажата — восстанавливаем стамину
             isSprinting = false;
             stats.RegenerateStamina(stats.staminaRegenRate);
         }
     }
+
+
+    // <<< ADD: обнаружение столкновения с платформой
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.collider.CompareTag("MovingPlatform"))
+        {
+            TriggeredMovingPlatform platform = hit.collider.GetComponent<TriggeredMovingPlatform>();
+            if (platform != null)
+            {
+                platform.Activate();
+            }
+
+            if (currentPlatform != hit.collider.transform)
+            {
+                currentPlatform = hit.collider.transform;
+                lastPlatformPos = currentPlatform.position;
+            }
+        }
+    }
+    // >>>
+
+
+    // <<< ADD: движение вместе с платформой
+    private void LateUpdate()
+    {
+        if (currentPlatform != null)
+        {
+            Vector3 delta = currentPlatform.position - lastPlatformPos;
+            controller.Move(delta);
+            lastPlatformPos = currentPlatform.position;
+        }
+    }
+    // >>>
 }
