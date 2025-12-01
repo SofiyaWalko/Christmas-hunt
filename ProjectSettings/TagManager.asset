@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MovingPlatform
   - BouncePad
+  - SpringPad
   layers:
   - Default
   - TransparentFX

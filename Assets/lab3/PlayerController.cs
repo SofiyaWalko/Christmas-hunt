@@ -283,6 +283,16 @@ public class PlayerController : MonoBehaviour
                 lastPlatformPos = currentPlatform.position;
             }
         }
+
+        if (hit.collider.CompareTag("SpringPad"))
+        {
+            SpringPad pad = hit.collider.GetComponent<SpringPad>();
+            if (pad != null)
+            {
+                playerVelocity.y = Mathf.Sqrt(pad.bounceForce * -2f * gravity);
+                animator.SetTrigger("Jump"); // если есть анимация
+            }
+        }
     }
     // >>>
 
