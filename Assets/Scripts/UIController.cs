@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class InventoryUIController : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class InventoryUIController : MonoBehaviour
     private Label notificationMessage;
     private Button notificationClose;
     private Button notificationOk;
+    private Button notificationNextLevel;
 
     //----←
     private void Awake()
@@ -58,6 +60,7 @@ public class InventoryUIController : MonoBehaviour
         notificationTitle = root.Q<Label>("notification-title");
         notificationMessage = root.Q<Label>("notification-message");
         notificationOk = root.Q<Button>("notification-ok");
+        notificationNextLevel = root.Q<Button>("notification-next-level");
 
         if (notificationOk != null)
             notificationOk.clicked += () => HideNotification();
@@ -99,6 +102,7 @@ public class InventoryUIController : MonoBehaviour
                 notificationTitle = root.Q<Label>("notification-title");
                 notificationMessage = root.Q<Label>("notification-message");
                 notificationOk = root.Q<Button>("notification-ok");
+                notificationNextLevel = root.Q<Button>("notification-next-level");
 
                 if (notificationOk != null)
                     notificationOk.clicked += () => HideNotification();
@@ -116,6 +120,9 @@ public class InventoryUIController : MonoBehaviour
         if (notificationMessage != null)
             notificationMessage.text = message;
 
+        if (notificationNextLevel != null)
+            notificationNextLevel.style.display = DisplayStyle.None;
+
         // // Add class for USS-driven show, and set inline display as a fallback
         notificationOverlay.AddToClassList("show");
         notificationOverlay.style.display = DisplayStyle.Flex;
@@ -126,6 +133,19 @@ public class InventoryUIController : MonoBehaviour
         }
     }
 
+    public void ShowVictoryNotification(string message, string title, string nextSceneName)
+    {
+        ShowNotification(message, title);
+        if (notificationNextLevel != null)
+        {
+            notificationNextLevel.style.display = DisplayStyle.Flex;
+            notificationNextLevel.clicked += () => {
+                SceneManager.LoadScene(nextSceneName);
+                HideNotification();
+            };
+        }
+    }
+
     public void HideNotification()
     {
         if (notificationOverlay == null)
@@ -133,6 +153,13 @@ public class InventoryUIController : MonoBehaviour
 
         notificationOverlay.RemoveFromClassList("show");
         notificationOverlay.style.display = DisplayStyle.None;
+        
+        if (notificationNextLevel != null)
+        {
+            notificationNextLevel.style.display = DisplayStyle.None;
+            // Remove all listeners to avoid stacking
+            notificationNextLevel.clicked -= null; 
+        }
     }
 
     private System.Collections.IEnumerator HideNotificationAfter(float seconds)

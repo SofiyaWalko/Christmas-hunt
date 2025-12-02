@@ -42,6 +42,7 @@
             <ui:Label name="notification-message" text="Здесь будет отображаться сообщение пользователю.\nМногострочный текст поддерживается." class="modal-message" />
             <ui:VisualElement class="modal-actions">
                 <ui:Button name="notification-ok" text="ОК" class="modal-button" />
+                <ui:Button name="notification-next-level" text="Далее" class="modal-button" style="display: none;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

@@ -27,5 +27,13 @@ public class RewardPickup : MonoBehaviour
             Debug.LogWarning("Нет InventoryManager в сцене.");
             return;
         }
+
+        bool added = InventoryManager.Instance.AddReward(rewardItem);
+
+        if (added)
+        {
+            Debug.Log($"Награда {rewardItem.itemName} подобрана!");
+            Destroy(gameObject);
+        }
     }
 }
