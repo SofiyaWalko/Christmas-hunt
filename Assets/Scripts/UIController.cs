@@ -4,6 +4,8 @@ using UnityEngine.UIElements;
 
 public class InventoryUIController : MonoBehaviour
 {
+    public static InventoryUIController Instance { get; private set; }
+
     private VisualElement inventoryPanel;
     private VisualElement slotsContainer;
     private VisualElement rewardSlotElement;
@@ -18,11 +20,19 @@ public class InventoryUIController : MonoBehaviour
     private VisualElement interactHint;
     private Label interactText;
 
+    // Notification modal fields
+    private VisualElement notificationOverlay;
+    private Label notificationTitle;
+    private Label notificationMessage;
+    private Button notificationClose;
+    private Button notificationOk;
+
     //----←
     private void Awake()
     {
         playerControls = new PlayerControls();
         playerControls.Gameplay.Inventory.performed += ToggleInventory;
+        Instance = this;
     }
 
     private InventoryManager inventoryManagerRef;
@@ -43,11 +53,16 @@ public class InventoryUIController : MonoBehaviour
         // ← НОВОЕ: ПОДСКАЗКА
         interactHint = root.Q<VisualElement>("interact-hint");
         interactText = root.Q<Label>("interact-text");
-        //  ←
-        // ← ИНИЦИАЛИЗАЦИЯ ДИАЛОГА ←
-        //DialogueManager.Instance.Initialize(root); //так как у нас два вида диалогов я один закомментировал, который ниже, если нужно будет показать, комментируешь этот и разкомментируешь что ниже
+
+        notificationOverlay = root.Q<VisualElement>("notification-overlay");
+        notificationTitle = root.Q<Label>("notification-title");
+        notificationMessage = root.Q<Label>("notification-message");
+        notificationOk = root.Q<Button>("notification-ok");
+
+        if (notificationOk != null)
+            notificationOk.clicked += () => HideNotification();
+
         InkDialogueManager.Instance.InitializeUI(root);
-        // ← ПОДПИСКА НА СОБЫТИЕ ИЗ PlayerController
         PlayerController.OnInteractableFocusChanged += UpdateInteractHint; // подписались на событие по выводу подсказки
         // ---- ←
         playerControls.Gameplay.Enable();
@@ -65,6 +80,65 @@ public class InventoryUIController : MonoBehaviour
         {
             StartCoroutine(WaitForInventoryManager());
         }
+    }
+
+    public void ShowNotification(
+        string message,
+        string title = "Уведомление",
+        float autoHideSeconds = 0f
+    )
+    {
+        // Lazy initialize notification elements if Start hasn't set them yet
+        if (notificationOverlay == null)
+        {
+            var uiDoc = FindObjectOfType<UIDocument>();
+            if (uiDoc != null)
+            {
+                var root = uiDoc.rootVisualElement;
+                notificationOverlay = root.Q<VisualElement>("notification-overlay");
+                notificationTitle = root.Q<Label>("notification-title");
+                notificationMessage = root.Q<Label>("notification-message");
+                notificationOk = root.Q<Button>("notification-ok");
+
+                if (notificationOk != null)
+                    notificationOk.clicked += () => HideNotification();
+            }
+        }
+
+        if (notificationOverlay == null)
+        {
+            Debug.LogWarning("ShowNotification: notification overlay not found in UI.");
+            return;
+        }
+
+        if (notificationTitle != null)
+            notificationTitle.text = title;
+        if (notificationMessage != null)
+            notificationMessage.text = message;
+
+        // // Add class for USS-driven show, and set inline display as a fallback
+        notificationOverlay.AddToClassList("show");
+        notificationOverlay.style.display = DisplayStyle.Flex;
+
+        if (autoHideSeconds > 0f)
+        {
+            StartCoroutine(HideNotificationAfter(autoHideSeconds));
+        }
+    }
+
+    public void HideNotification()
+    {
+        if (notificationOverlay == null)
+            return;
+
+        notificationOverlay.RemoveFromClassList("show");
+        notificationOverlay.style.display = DisplayStyle.None;
+    }
+
+    private System.Collections.IEnumerator HideNotificationAfter(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        HideNotification();
     }
 
     private void OnDisable()

@@ -11,6 +11,10 @@ public class InventoryManager : MonoBehaviour
     public List<InventorySlot> slots = new List<InventorySlot>();
     public int inventorySize = 12;
 
+    // If true, clear `rewardSlot` and `statSlot` on game start so pickups
+    // are not pre-populated from inspector during development.
+    public bool clearSpecialSlotsOnStart = true;
+
     // Специальный слот для подарка (всегда один)
     public InventorySlot rewardSlot;
 
@@ -26,6 +30,14 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Instance = this;
+        }
+
+        // Clear special slots if requested so the player doesn't start with them
+        if (clearSpecialSlotsOnStart)
+        {
+            rewardSlot = null;
+            statSlot = null;
+            OnInventoryChanged?.Invoke();
         }
     }
 

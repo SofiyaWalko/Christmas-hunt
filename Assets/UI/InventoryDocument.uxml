@@ -2,6 +2,7 @@
     <Style src="project://database/Assets/UI/InventoryStyles.uss?fileID=7433441132597879392&amp;guid=18a8bbbef12a55642ab5ee0460e84452&amp;type=3#InventoryStyles" />
     <Style src="project://database/Assets/UI/HelpStyle.uss?fileID=7433441132597879392&amp;guid=2408c727a0ae3bb9183223319cc0283b&amp;type=3#HelpStyle" />
     <Style src="project://database/Assets/UI/InkDialogueStyle.uss?fileID=7433441132597879392&amp;guid=f422a8cae2e64d6d94778132e1d66925&amp;type=3#InkDialogueStyle" />
+    <Style src="project://database/Assets/UI/NotificationStyle.uss?fileID=7433441132597879392&amp;guid=07f658c1664cc07d88d59c69349110a2&amp;type=3#NotificationStyle" />
     <ui:GroupBox style="justify-content: center; align-items: flex-start; align-self: auto; align-content: auto; flex-direction: row;">
         <ui:VisualElement name="hud-container" style="flex-grow: 1; left: 10px; width: 10%; min-width: auto; max-width: 30%;">
             <ui:Label text="Здоровье&#10;" name="health-text" style="font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/Fonts/Ali-Bold.ttf?fileID=12800000&amp;guid=4cd735b0bbaca8147a9fa5c5e40a321b&amp;type=3#Ali-Bold&quot;); color: rgb(31, 39, 51);" />
@@ -34,5 +35,14 @@
     <ui:VisualElement name="death-menu" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; display: none;">
         <ui:Label text="ВЫ УМЕРЛИ" style="font-size: 48px; color: rgb(255, 0, 0); -unity-font-style: bold; margin-bottom: 20px;" />
         <ui:Button name="restart-button" text="ПЕРЕЗАГРУЗИТЬ" style="font-size: 24px; padding: 10px 20px; background-color: rgb(200, 200, 200); color: black; border-radius: 5px;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="notification-overlay" class="modal-overlay" style="display: none;">
+        <ui:VisualElement name="notification-window" class="modal-window">
+            <ui:Label name="notification-title" text="Уведомление" class="modal-title" />
+            <ui:Label name="notification-message" text="Здесь будет отображаться сообщение пользователю.\nМногострочный текст поддерживается." class="modal-message" />
+            <ui:VisualElement class="modal-actions">
+                <ui:Button name="notification-ok" text="ОК" class="modal-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

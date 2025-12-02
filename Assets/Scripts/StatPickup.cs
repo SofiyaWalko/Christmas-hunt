@@ -25,6 +25,16 @@ public class StatPickup : MonoBehaviour, IInteractable
         Debug.Log($"StatPickup: AddStat returned {addedToStat}");
         if (addedToStat)
         {
+            // Show pickup notification if UI controller exists
+            if (InventoryUIController.Instance != null)
+            {
+                InventoryUIController.Instance.ShowNotification(
+                    "Вы подобрали стат!",
+                    "Стат Получен",
+                    2f
+                );
+            }
+
             Destroy(gameObject);
         }
     }

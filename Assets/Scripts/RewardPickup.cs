@@ -31,6 +31,14 @@ public class RewardPickup : MonoBehaviour
         bool added = InventoryManager.Instance.AddReward(rewardItem);
         if (added)
         {
+            if (rewardItem.itemName == "SuperGift")
+            {
+                PlayerController player = other.GetComponent<PlayerController>();
+                if (player != null)
+                {
+                    player.UnlockDoubleJump();
+                }
+            }
             Destroy(gameObject);
         }
         else

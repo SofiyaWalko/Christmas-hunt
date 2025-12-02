@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
     private bool isSprinting;
     private bool sprintButtonHeld;
+    private bool canDoubleJump; 
+    private bool doubleJumpUnlocked = false;
 
     private CharacterStats stats;
 
@@ -96,8 +98,16 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrounded)
         {
+            Debug.Log("Jump!");
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             animator.SetTrigger("Jump");
+        }
+        else if (canDoubleJump && doubleJumpUnlocked)
+        {
+            Debug.Log("Double Jump!");
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            animator.SetTrigger("Jump"); // Or a different trigger if you have one
+            canDoubleJump = false;
         }
     }
 
@@ -146,6 +156,10 @@ public class PlayerController : MonoBehaviour
             if (slopeAngle <= maxSlopeAngle)
             {
                 isGrounded = true;
+                if (doubleJumpUnlocked)
+                {
+                    canDoubleJump = true;
+                }
                 return;
             }
         }
@@ -308,4 +322,10 @@ public class PlayerController : MonoBehaviour
         }
     }
     // >>>
+
+    public void UnlockDoubleJump()
+    {
+        doubleJumpUnlocked = true;
+        Debug.Log("Double Jump Unlocked!");
+    }
 }

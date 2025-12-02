@@ -15,6 +15,16 @@ public class ItemPickup : MonoBehaviour, IInteractable
     
     if (wasPickedUp)
     {
+        if (itemData.itemName == "Главный подарок")
+        {
+            PlayerController player = FindObjectOfType<PlayerController>();
+            if (player != null)
+            {
+                player.UnlockDoubleJump();
+            } else {
+                Debug.LogWarning("PlayerController не найден в сцене.");
+            }
+        }
         //gameObject.SetActive(false);
         Destroy(gameObject);
     }
