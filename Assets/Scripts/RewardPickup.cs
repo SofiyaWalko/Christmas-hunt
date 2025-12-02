@@ -27,23 +27,5 @@ public class RewardPickup : MonoBehaviour
             Debug.LogWarning("Нет InventoryManager в сцене.");
             return;
         }
-
-        bool added = InventoryManager.Instance.AddReward(rewardItem);
-        if (added)
-        {
-            if (rewardItem.itemName == "SuperGift")
-            {
-                PlayerController player = other.GetComponent<PlayerController>();
-                if (player != null)
-                {
-                    player.UnlockDoubleJump();
-                }
-            }
-            Destroy(gameObject);
-        }
-        else
-        {
-            // слот занят и предмет не добавлен
-        }
     }
 }

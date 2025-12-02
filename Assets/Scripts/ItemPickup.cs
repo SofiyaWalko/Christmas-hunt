@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class ItemPickup : MonoBehaviour, IInteractable
 {
     public ItemData itemData;
@@ -9,25 +10,28 @@ public class ItemPickup : MonoBehaviour, IInteractable
     }
 
     public void Interact()
-{
-    // Обращаемся к синглтону InventoryManager
-    bool wasPickedUp = InventoryManager.Instance.AddItem(itemData);
-    
-    if (wasPickedUp)
     {
-        if (itemData.itemName == "Главный подарок")
+        // Обращаемся к синглтону InventoryManager
+        bool wasPickedUp = InventoryManager.Instance.AddItem(itemData);
+
+        if (wasPickedUp)
         {
-            PlayerController player = FindObjectOfType<PlayerController>();
-            if (player != null)
+            if (itemData.itemName == "Главный подарок")
             {
-                player.UnlockDoubleJump();
-            } else {
-                Debug.LogWarning("PlayerController не найден в сцене.");
+                PlayerController player = FindObjectOfType<PlayerController>();
+                if (player != null)
+                {
+                    player.UnlockDoubleJump();
+                }
+                else
+                    Debug.LogWarning("PlayerController не найден в сцене.");
             }
         }
-        //gameObject.SetActive(false);
+
+        if (itemData.itemName == "Последний подарок")
+        {
+            InventoryUIController.Instance.ShowNotification("Ура вы победили", "Победа!");
+        }
         Destroy(gameObject);
     }
-}
-
 }
