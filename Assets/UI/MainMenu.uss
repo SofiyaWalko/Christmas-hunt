@@ -1,0 +1,64 @@
+/* MainMenu.uss */
+
+/* Фон всего меню */
+.root {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(40, 44, 52); /* Темный фон */
+}
+
+/* Контейнер для кнопок (если вы обернете их в VisualElement с классом .menu-container) */
+.menu-container {
+    width: 350px;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    align-items: stretch;
+}
+
+/* Общий стиль кнопок */
+Button {
+    height: 60px;
+    margin-bottom: 15px;
+    font-size: 24px;
+    -unity-font-style: bold;
+    color: rgb(230, 230, 230);
+    background-color: rgb(60, 63, 65);
+    border-width: 2px;
+    border-color: rgb(85, 85, 85);
+    border-radius: 10px;
+    transition-duration: 0.2s;
+}
+
+/* Эффект наведения */
+Button:hover {
+    background-color: rgb(80, 83, 85);
+    scale: 1.05;
+    border-color: rgb(120, 120, 120);
+}
+
+/* Эффект нажатия */
+Button:active {
+    background-color: rgb(40, 43, 45);
+    scale: 0.95;
+    color: rgb(180, 180, 180);
+}
+
+/* Особый стиль для кнопки выхода */
+#quit-button {
+    margin-top: 20px;
+    background-color: rgb(140, 50, 50);
+    border-color: rgb(160, 70, 70);
+}
+
+#quit-button:hover {
+    background-color: rgb(170, 60, 60);
+}
+
+/* Фон для контейнера */
+#container {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+}

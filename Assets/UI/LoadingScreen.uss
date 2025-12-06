@@ -1,0 +1,52 @@
+/* LoadingScreen.uss */
+
+/* Основной контейнер */
+.root {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(30, 30, 30);
+}
+
+/* Прогресс бар */
+#loading-bar {
+    width: 70%;
+    height: 30px;
+    margin-bottom: 20px;
+    border-width: 0;
+}
+
+/* Фон прогресс бара */
+#loading-bar .unity-progress-bar__background {
+    background-color: rgb(50, 50, 50);
+    border-radius: 10px;
+    border-width: 0;
+}
+
+/* Заполненная часть прогресс бара */
+#loading-bar .unity-progress-bar__progress {
+    background-color: rgb(76, 175, 80); /* Зеленый цвет */
+    border-radius: 10px;
+    margin: 0;
+}
+
+/* Текст процентов внутри бара (если есть) */
+#loading-bar .unity-label {
+    color: white;
+    font-size: 14px;
+}
+
+/* Текст описания загрузки */
+#progress-text {
+    font-size: 24px;
+    color: rgb(220, 220, 220);
+    -unity-font-style: bold;
+    margin-top: 10px;
+}
+
+/* Фон для контейнера */
+#container {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+}

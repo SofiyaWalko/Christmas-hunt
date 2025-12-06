@@ -1,0 +1,89 @@
+/* SettingsMenu.uss */
+
+/* Фон */
+.root {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(35, 35, 40);
+}
+
+/* Панель настроек */
+.settings-panel {
+    width: 600px;
+    padding: 40px;
+    background-color: rgb(50, 50, 55);
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: rgb(80, 80, 80);
+}
+
+/* Общий стиль полей (слайдеры, дропдауны) */
+.unity-base-field {
+    margin-bottom: 25px;
+    justify-content: space-between;
+}
+
+/* Лейблы полей */
+.unity-base-field__label {
+    font-size: 20px;
+    color: rgb(220, 220, 220);
+    min-width: 200px;
+    -unity-font-style: bold;
+}
+
+/* Слайдер громкости */
+#volume-slider .unity-base-slider__tracker {
+    background-color: rgb(80, 80, 80);
+    height: 6px;
+    border-radius: 3px;
+}
+
+#volume-slider .unity-base-slider__dragger {
+    background-color: rgb(200, 200, 200);
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    border-width: 0;
+    margin-top: -9px;
+}
+
+#volume-slider .unity-base-slider__dragger:hover {
+    background-color: white;
+    scale: 1.1;
+}
+
+/* Выпадающий список */
+#quality-dropdown .unity-base-field__input {
+    background-color: rgb(70, 70, 75);
+    border-width: 1px;
+    border-color: rgb(100, 100, 100);
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    font-size: 16px;
+}
+
+/* Кнопка "Назад" */
+#back-button {
+    margin-top: 40px;
+    height: 50px;
+    width: 200px;
+    align-self: center;
+    font-size: 18px;
+    background-color: rgb(80, 80, 90);
+    color: white;
+    border-radius: 8px;
+    border-width: 0;
+}
+
+#back-button:hover {
+    background-color: rgb(100, 100, 110);
+}
+
+/* Фон для контейнера */
+#container {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+}

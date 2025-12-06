@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/SettingsMenu.uss?fileID=7433441132597879392&amp;guid=07626543ee178b560ae1871a8920a659&amp;type=3#SettingsMenu" />
+    <ui:VisualElement name="container" style="flex-grow: 1;">
+        <ui:Slider label="Slider" value="42" high-value="100" name="volume-slider" />
+        <ui:DropdownField label="Dropdown" name="quality-dropdown" />
+        <ui:Button text="Назад" name="back-button" />
+    </ui:VisualElement>
+</ui:UXML>
