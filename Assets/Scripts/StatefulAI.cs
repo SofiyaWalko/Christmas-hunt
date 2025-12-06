@@ -202,8 +202,6 @@ public class StatefulAI : MonoBehaviour, IInteractable
         {
             TryShootSnowball();
         }
-
-        
     }
 
     private void UpdateInteract()
