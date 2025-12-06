@@ -29,13 +29,11 @@ public class RewardPickup : MonoBehaviour
         }
 
         bool added = InventoryManager.Instance.AddReward(rewardItem);
+
         if (added)
         {
+            Debug.Log($"Награда {rewardItem.itemName} подобрана!");
             Destroy(gameObject);
-        }
-        else
-        {
-            // слот занят и предмет не добавлен
         }
     }
 }

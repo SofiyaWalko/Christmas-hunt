@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class InventoryUIController : MonoBehaviour
 {
+    public static InventoryUIController Instance { get; private set; }
+
     private VisualElement inventoryPanel;
     private VisualElement slotsContainer;
     private VisualElement rewardSlotElement;
@@ -18,11 +21,20 @@ public class InventoryUIController : MonoBehaviour
     private VisualElement interactHint;
     private Label interactText;
 
+    // Notification modal fields
+    private VisualElement notificationOverlay;
+    private Label notificationTitle;
+    private Label notificationMessage;
+    private Button notificationClose;
+    private Button notificationOk;
+    private Button notificationNextLevel;
+
     //----←
     private void Awake()
     {
         playerControls = new PlayerControls();
         playerControls.Gameplay.Inventory.performed += ToggleInventory;
+        Instance = this;
     }
 
     private InventoryManager inventoryManagerRef;
@@ -43,11 +55,17 @@ public class InventoryUIController : MonoBehaviour
         // ← НОВОЕ: ПОДСКАЗКА
         interactHint = root.Q<VisualElement>("interact-hint");
         interactText = root.Q<Label>("interact-text");
-        //  ←
-        // ← ИНИЦИАЛИЗАЦИЯ ДИАЛОГА ←
-        //DialogueManager.Instance.Initialize(root); //так как у нас два вида диалогов я один закомментировал, который ниже, если нужно будет показать, комментируешь этот и разкомментируешь что ниже
+
+        notificationOverlay = root.Q<VisualElement>("notification-overlay");
+        notificationTitle = root.Q<Label>("notification-title");
+        notificationMessage = root.Q<Label>("notification-message");
+        notificationOk = root.Q<Button>("notification-ok");
+        notificationNextLevel = root.Q<Button>("notification-next-level");
+
+        if (notificationOk != null)
+            notificationOk.clicked += () => HideNotification();
+
         InkDialogueManager.Instance.InitializeUI(root);
-        // ← ПОДПИСКА НА СОБЫТИЕ ИЗ PlayerController
         PlayerController.OnInteractableFocusChanged += UpdateInteractHint; // подписались на событие по выводу подсказки
         // ---- ←
         playerControls.Gameplay.Enable();
@@ -65,6 +83,89 @@ public class InventoryUIController : MonoBehaviour
         {
             StartCoroutine(WaitForInventoryManager());
         }
+    }
+
+    public void ShowNotification(
+        string message,
+        string title = "Уведомление",
+        float autoHideSeconds = 0f
+    )
+    {
+        // Lazy initialize notification elements if Start hasn't set them yet
+        if (notificationOverlay == null)
+        {
+            var uiDoc = FindObjectOfType<UIDocument>();
+            if (uiDoc != null)
+            {
+                var root = uiDoc.rootVisualElement;
+                notificationOverlay = root.Q<VisualElement>("notification-overlay");
+                notificationTitle = root.Q<Label>("notification-title");
+                notificationMessage = root.Q<Label>("notification-message");
+                notificationOk = root.Q<Button>("notification-ok");
+                notificationNextLevel = root.Q<Button>("notification-next-level");
+
+                if (notificationOk != null)
+                    notificationOk.clicked += () => HideNotification();
+            }
+        }
+
+        if (notificationOverlay == null)
+        {
+            Debug.LogWarning("ShowNotification: notification overlay not found in UI.");
+            return;
+        }
+
+        if (notificationTitle != null)
+            notificationTitle.text = title;
+        if (notificationMessage != null)
+            notificationMessage.text = message;
+
+        if (notificationNextLevel != null)
+            notificationNextLevel.style.display = DisplayStyle.None;
+
+        // // Add class for USS-driven show, and set inline display as a fallback
+        notificationOverlay.AddToClassList("show");
+        notificationOverlay.style.display = DisplayStyle.Flex;
+
+        if (autoHideSeconds > 0f)
+        {
+            StartCoroutine(HideNotificationAfter(autoHideSeconds));
+        }
+    }
+
+    public void ShowVictoryNotification(string message, string title, string nextSceneName)
+    {
+        ShowNotification(message, title);
+        if (notificationNextLevel != null)
+        {
+            notificationNextLevel.style.display = DisplayStyle.Flex;
+            notificationNextLevel.clicked += () => {
+                SceneManager.LoadScene(nextSceneName);
+                HideNotification();
+            };
+        }
+    }
+
+    public void HideNotification()
+    {
+        if (notificationOverlay == null)
+            return;
+
+        notificationOverlay.RemoveFromClassList("show");
+        notificationOverlay.style.display = DisplayStyle.None;
+        
+        if (notificationNextLevel != null)
+        {
+            notificationNextLevel.style.display = DisplayStyle.None;
+            // Remove all listeners to avoid stacking
+            notificationNextLevel.clicked -= null; 
+        }
+    }
+
+    private System.Collections.IEnumerator HideNotificationAfter(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        HideNotification();
     }
 
     private void OnDisable()
