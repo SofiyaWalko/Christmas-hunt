@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/PauseMenu.uss?fileID=7433441132597879392&amp;guid=4ffb7323afe38401e979eb039f6e11bb&amp;type=3#PauseMenu" />
+    <ui:VisualElement name="container" style="flex-grow: 1;">
+        <ui:Button text="Продолжить" name="resume-button" />
+        <ui:Button text="Главное меню" name="main-menu-button" />
+        <ui:Button text="Выход" name="quit-button" />
+    </ui:VisualElement>
+</ui:UXML>
