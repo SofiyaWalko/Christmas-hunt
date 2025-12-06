@@ -78,30 +78,30 @@ public class InkDialogueManager : MonoBehaviour
             Debug.Log($"Story создана. canContinue: {inkStory.canContinue}");
 
             // Перед началом диалога установим переменные, которые могут понадобиться в ink
-            int statCount = 0;
-            if (InventoryManager.Instance != null && InventoryManager.Instance.HasStat())
-            {
-                var ss = InventoryManager.Instance.statSlot;
-                if (ss != null)
-                    statCount = ss.quantity;
-            }
+            // int statCount = 0;
+            // if (InventoryManager.Instance != null && InventoryManager.Instance.HasStat())
+            // {
+            //     var ss = InventoryManager.Instance.statSlot;
+            //     if (ss != null)
+            //         statCount = ss.quantity;
+            // }
 
-            try
-            {
-                inkStory.variablesState["statCount"] = statCount;
-                inkStory.variablesState["hasStat"] = (statCount > 0);
-                if (requiredStatCount > 0)
-                {
-                    inkStory.variablesState["hasEnoughStats"] = (statCount >= requiredStatCount);
-                }
-                Debug.Log(
-                    $"Ink variables set: statCount={statCount}, hasStat={(statCount > 0)}, hasEnoughStats={(requiredStatCount > 0 ? (statCount >= requiredStatCount).ToString() : "n/a")} "
-                );
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogWarning($"Не удалось установить переменные Ink: {e.Message}");
-            }
+            // try
+            // {
+            //     inkStory.variablesState["statCount"] = statCount;
+            //     inkStory.variablesState["hasStat"] = (statCount > 0);
+            //     if (requiredStatCount > 0)
+            //     {
+            //         inkStory.variablesState["hasEnoughStats"] = (statCount >= requiredStatCount);
+            //     }
+            //     Debug.Log(
+            //         $"Ink variables set: statCount={statCount}, hasStat={(statCount > 0)}, hasEnoughStats={(requiredStatCount > 0 ? (statCount >= requiredStatCount).ToString() : "n/a")} "
+            //     );
+            // }
+            // catch (System.Exception e)
+            // {
+            //     Debug.LogWarning($"Не удалось установить переменные Ink: {e.Message}");
+            // }
 
             dialogueBox.style.display = DisplayStyle.Flex;
             Debug.Log("Dialogue box показан");
@@ -242,35 +242,35 @@ public class InkDialogueManager : MonoBehaviour
         inkStory = null;
     }
 
-    public object GetVariable(string variableName)
-    {
-        if (inkStory != null)
-        {
-            try
-            {
-                return inkStory.variablesState[variableName];
-            }
-            catch (System.Exception)
-            {
-                Debug.LogWarning($"Переменная '{variableName}' не найдена.");
-                return null;
-            }
-        }
-        return null;
-    }
+    // public object GetVariable(string variableName)
+    // {
+    //     if (inkStory != null)
+    //     {
+    //         try
+    //         {
+    //             return inkStory.variablesState[variableName];
+    //         }
+    //         catch (System.Exception)
+    //         {
+    //             Debug.LogWarning($"Переменная '{variableName}' не найдена.");
+    //             return null;
+    //         }
+    //     }
+    //     return null;
+    // }
 
-    public void SetVariable(string variableName, object value)
-    {
-        if (inkStory != null)
-        {
-            try
-            {
-                inkStory.variablesState[variableName] = value;
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError($"Ошибка установки '{variableName}': {e.Message}");
-            }
-        }
-    }
+    // public void SetVariable(string variableName, object value)
+    // {
+    //     if (inkStory != null)
+    //     {
+    //         try
+    //         {
+    //             inkStory.variablesState[variableName] = value;
+    //         }
+    //         catch (System.Exception e)
+    //         {
+    //             Debug.LogError($"Ошибка установки '{variableName}': {e.Message}");
+    //         }
+    //     }
+    // }
 }
