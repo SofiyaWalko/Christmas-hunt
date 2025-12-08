@@ -215,6 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 6549d862-2928-4163-be60-b780ebd0f4e4
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &11624300
 BoxCollider:
@@ -254,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: eb73b63b-b270-4082-b2f0-c9b405f37dcb
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &12140498
 BoxCollider:
@@ -293,6 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 320cf301-330c-4c37-bdd8-a571b4cdbab3
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &28529046
 BoxCollider:
@@ -791,6 +794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 5a1c2c9a-ca39-4372-bbc7-6709eb915cb6
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &66967705
 BoxCollider:
@@ -1227,6 +1231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 46f741fd-c2a2-4cfd-ab7f-98b000d3252e
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &101045320
 BoxCollider:
@@ -1345,6 +1350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 8095c43d-be58-4186-a34b-16cb2293a513
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &118951810
 BoxCollider:
@@ -1463,6 +1469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: b6583978-d862-48e5-8955-8a5d0734ac3c
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &126634395
 BoxCollider:
@@ -1911,6 +1918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 67d2ce8f-c0dd-4c6b-abfb-10467a6198ae
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &165379353
 BoxCollider:
@@ -2156,6 +2164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: ad9f9dab-015c-4120-8d26-4f2e77726443
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &181740122
 BoxCollider:
@@ -2378,6 +2387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 8d46bc09-f300-4565-9c50-130750be7552
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &231478626
 BoxCollider:
@@ -2417,6 +2427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 8e74295d-15a9-4855-b3a3-7f5ff90f3238
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &231784609
 BoxCollider:
@@ -2698,6 +2709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 696664c7-4af0-43be-ac99-f319d4f49249
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &255002987
 BoxCollider:
@@ -2894,6 +2906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: acfe6796-9387-452f-b3e5-f2be98c7c456
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &289595525
 BoxCollider:
@@ -2933,6 +2946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: dc809bd1-a44a-40af-ba13-5e42c2a5baec
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &296882890
 BoxCollider:
@@ -3051,6 +3065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: cd4791f5-c39e-4f76-b11b-26c3f0cdb5c1
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &327896321
 BoxCollider:
@@ -3090,6 +3105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: fdab3cb6-e86e-4673-8f98-de4a1c1f85ba
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &341799324
 BoxCollider:
@@ -3208,6 +3224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 62f56e03-9466-4722-bc6e-0d393c2cac6e
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &354462708
 BoxCollider:
@@ -3405,6 +3422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: cf88df69-5acd-4cec-900a-06ad9faafda0
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &362362692
 BoxCollider:
@@ -3602,6 +3620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 8eb94ad9-33e1-4588-93de-a92df28fe1b9
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &385479037
 BoxCollider:
@@ -3720,6 +3739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 43a8365a-5195-45fa-aa96-e214d2777eed
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &391176643
 BoxCollider:
@@ -3759,6 +3779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: dc5982b3-e9fe-4088-8cd8-69c1ad618c43
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &418389556
 BoxCollider:
@@ -3879,6 +3900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 23f3ffc4-dddb-41cf-9dca-3f3aa21815ba
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &423581989
 BoxCollider:
@@ -4101,6 +4123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: de7fcf83-e8ea-4384-bc29-cbb5c8ed36df
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &442515266
 BoxCollider:
@@ -4371,6 +4394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 3678a527-1c77-4a69-8550-ed69bf35d60f
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &456705012
 BoxCollider:
@@ -4932,6 +4956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 3d056f26-d703-4231-9806-da1720bb9635
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &509829487
 BoxCollider:
@@ -5081,6 +5106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 50cd04d2-5450-4add-8d86-31297d8b5874
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &524746397
 BoxCollider:
@@ -5357,6 +5383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 4b2069d3-7920-402b-868b-6c527869afe3
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &572974214
 BoxCollider:
@@ -5506,6 +5533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 8910fafc-afed-44e0-bcd6-617cfe11bdd9
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &575575329
 BoxCollider:
@@ -5841,6 +5869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: bf762402-df43-4d5a-97db-b8abe4cd76d1
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &625338036
 BoxCollider:
@@ -5880,6 +5909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 23ec3b90-b57b-4280-9001-a8ea265e6b05
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &634011805
 BoxCollider:
@@ -6187,6 +6217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 320ddf62-9cfe-416f-b3d7-f2b618f885a8
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &650435470
 BoxCollider:
@@ -6305,6 +6336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 4e087dfa-bad7-44e7-818a-e357cf74448c
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &661168166
 BoxCollider:
@@ -6485,6 +6517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 4ac70256-9e9c-4afb-bb35-494d6d190233
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &684771145
 BoxCollider:
@@ -6524,6 +6557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 0985c2bf-8ba0-44b5-9ea5-999ecf4939d3
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &689134452
 BoxCollider:
@@ -6642,6 +6676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: f3438286-5e27-40a4-ae6b-89ddffdec362
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &693307367
 BoxCollider:
@@ -7077,6 +7112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 1676e02c-4fbc-49ca-9502-2fd0505e823b
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &723580082
 BoxCollider:
@@ -7195,6 +7231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: a3c72805-1396-452d-bade-1a9875ee1ea7
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &741683253
 BoxCollider:
@@ -7313,6 +7350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: f8824b0d-c8d4-4f47-af22-bc7f41c43bad
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &748323912
 BoxCollider:
@@ -7431,6 +7469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 688bbc10-702e-4f95-aa2e-89b00953a377
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &758448837
 BoxCollider:
@@ -7470,6 +7509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 94c4b082-418b-4a70-bbaf-acd42d1309df
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &761379723
 BoxCollider:
@@ -7588,6 +7628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 23ec2e44-b80b-4b31-ba52-ea2bca8bb032
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &782755754
 BoxCollider:
@@ -7739,6 +7780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: fb08ae8f-6294-4448-b95f-cd73cc08d4c2
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &804247505
 BoxCollider:
@@ -7778,6 +7820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 30e3e2d7-5349-4231-a9f6-0a5abc12019d
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &809966389
 BoxCollider:
@@ -8075,6 +8118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: d3005ab7-4667-4103-8705-cf30e1cb301a
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &830504540
 BoxCollider:
@@ -8250,6 +8294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: d8ad315a-2e76-4c2f-85b1-40b4e6ac130f
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &854457002
 BoxCollider:
@@ -8358,6 +8403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: ec80a40e-f139-45d1-8b87-174edc2ee070
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &886700399
 BoxCollider:
@@ -8397,6 +8443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: cfa0e104-191e-4f57-a3d2-8193388d5d57
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &889516309
 BoxCollider:
@@ -9151,6 +9198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: cb6d5048-e93c-4c9e-bdd3-f4963e4b5451
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1003849533
 BoxCollider:
@@ -9410,6 +9458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 628b3cac-a810-4f27-9406-1e604d823f56
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1013400911
 BoxCollider:
@@ -9528,6 +9577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 80ba8cc1-3bf1-4e9f-aa8c-c6a1fe1158fe
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1051443870
 BoxCollider:
@@ -9646,6 +9696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 6388b152-9a15-4dcb-8bf9-16fa1e652e32
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1057001188
 BoxCollider:
@@ -9991,6 +10042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 75492ace-17d2-413e-a44a-8fe4e3931659
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1088465675
 BoxCollider:
@@ -10109,6 +10161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 0c0e9f0d-db89-451a-acd7-f7b9babe2697
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1100838368
 BoxCollider:
@@ -10395,6 +10448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 26d668dd-904d-4ff9-a277-5807c5b58f80
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1149042400
 BoxCollider:
@@ -10465,6 +10519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: bb3717dc-235e-4f2b-80a8-52cd1bc2578a
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1165366715
 BoxCollider:
@@ -10504,6 +10559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 60b84b60-f8c4-4cbc-a786-b3df39f0bcf3
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1168350724
 BoxCollider:
@@ -10599,6 +10655,76 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a02a11f11e9fb14da0355860582bb7c, type: 3}
+--- !u!1 &1190106108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1190106110}
+  - component: {fileID: 1190106109}
+  - component: {fileID: 1190106111}
+  m_Layer: 6
+  m_Name: PauseMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1190106109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190106108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee428f055422ac7deb1e4a4e43afaba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseMenuController
+  saveGameMenuTemplate: {fileID: 9197481963319205126, guid: 3a1a4e3c059a493dca37d93956f1447b, type: 3}
+  loadGameMenuTemplate: {fileID: 9197481963319205126, guid: 927608ece18d9987287feea410d0928d, type: 3}
+--- !u!4 &1190106110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190106108}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -56.3, z: 239.2}
+  m_LocalScale: {x: 368.49796, y: 6.7561, z: 370.35883}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1190106111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190106108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 5323dfb391178ce489331a9cfabf858c, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 4d3f198ffb9cb70bf86d1ee0917978c2, type: 3}
+  m_SortingOrder: 3
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
 --- !u!1001 &1202914884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10821,6 +10947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 80c78ac0-1fea-4ad7-9795-b2c6268e8805
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1207089177
 BoxCollider:
@@ -10939,6 +11066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 67939f4a-1507-47c0-ba5a-0d9bb246ba29
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1207504879
 BoxCollider:
@@ -11088,6 +11216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: e952c3d4-e5a7-4a68-af06-6c8960349889
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1213096973
 BoxCollider:
@@ -11335,6 +11464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: d28132be-1b55-4e9e-ae41-f48f396c705f
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1272882828
 BoxCollider:
@@ -11453,6 +11583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: bb651cc5-4f7a-4f5c-a8d4-91d7eeb386f2
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1273405510
 BoxCollider:
@@ -11569,6 +11700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 50c7eb2d-b56c-4a8b-9120-5364aa23967e
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1293812052
 BoxCollider:
@@ -11608,6 +11740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: b0ee1c5c-53df-4f7d-abf1-e2490223fcb0
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1295141230
 BoxCollider:
@@ -11647,6 +11780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 0cacffb3-0a8f-49bd-bd8e-aeda72a59123
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1313855352
 BoxCollider:
@@ -12005,6 +12139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 1f511d62-e592-47c7-88fe-3ca4fbe47dde
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1337921846
 BoxCollider:
@@ -12369,6 +12504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 12d3abec-270c-443b-bcb9-f117e3b64cff
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1365973650
 BoxCollider:
@@ -12487,6 +12623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: d2498e4d-a4f7-476a-9330-c3be115b43ab
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1366530988
 BoxCollider:
@@ -12662,6 +12799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 9b4092ee-df50-419b-8cfe-ffe825c1a9a4
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1375784240
 BoxCollider:
@@ -12844,6 +12982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 22d43565-bacd-4177-9f49-eb14f323ac5b
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1393597915
 BoxCollider:
@@ -13024,6 +13163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 30dd3527-fe19-44e5-b88b-8dced803e365
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1437482711
 BoxCollider:
@@ -13142,6 +13282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: d324662e-e496-4b49-a318-e7efa134fe03
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1442958343
 BoxCollider:
@@ -13238,6 +13379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: a767ba80-3521-4696-9092-53a72712659b
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1527542712
 BoxCollider:
@@ -13713,6 +13855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 1bb61222-c113-40c0-8d92-50eb499a5a31
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1597359236
 BoxCollider:
@@ -13956,6 +14099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: b3b3fa18-ae71-4fb1-bb81-d65170107ddb
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1604285544
 BoxCollider:
@@ -14234,6 +14378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: ff7e00f1-fca6-4cbc-aaac-4bd2db02ea6e
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1656394408
 BoxCollider:
@@ -14273,6 +14418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 31072ed1-acbc-4d80-a481-5a652718ffd7
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1673277444
 BoxCollider:
@@ -14422,6 +14568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 8df99319-2997-4d6d-bf25-02d6c5f81132
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1698614497
 BoxCollider:
@@ -14461,6 +14608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: d1bb0333-40ee-46ae-afe5-15708082df4f
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1704699043
 BoxCollider:
@@ -14658,6 +14806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: f1f197f3-4fea-4c42-a97b-702107a2f947
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1729062806
 BoxCollider:
@@ -14762,6 +14911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 1949bc4a-407a-4e78-8c9a-b13f57060398
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1781235260
 BoxCollider:
@@ -15057,12 +15207,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   slots: []
   inventorySize: 12
+  clearSpecialSlotsOnStart: 1
   rewardSlot:
     item: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
     quantity: 0
   statSlot:
     item: {fileID: 11400000, guid: 149673d233555a785ad21fea1990fec2, type: 2}
     quantity: 0
+  allItemsDatabase: []
 --- !u!4 &1794405711
 Transform:
   m_ObjectHideFlags: 0
@@ -15095,6 +15247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 7d3c3a3d-3388-4084-9c81-042b1bdd643b
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1801927242
 BoxCollider:
@@ -15313,6 +15466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 1500a660-c367-465f-a843-f0a6690de02a
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1843438247
 BoxCollider:
@@ -15431,6 +15585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 2aed0aa0-6f54-4a93-ba56-b6e3aa43938b
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1909066525
 BoxCollider:
@@ -15606,6 +15761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 5b7932b7-9e7c-4639-bb8b-f1675318cf3e
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1920420014
 BoxCollider:
@@ -15645,6 +15801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: d236dcda-69ae-4500-bdc5-178340d37b03
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1936087934
 BoxCollider:
@@ -15777,6 +15934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 0bd9cb0f-53b9-43e3-a4ed-9c840f10e5f0
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1954242862
 BoxCollider:
@@ -15999,6 +16157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: def904ae-dbed-46de-a582-f39610e00f2e
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1963934533
 BoxCollider:
@@ -16275,6 +16434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 6104bfaa-8157-4f1d-b6e4-18d9b3b74984
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &1984259016
 BoxCollider:
@@ -16521,6 +16681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: bb9155d7-dc04-473c-bcab-a510b99dd671
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &2016168360
 BoxCollider:
@@ -16580,6 +16741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 4f06ccd0-b841-4e9e-85dc-9d60641f57f6
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &2028772585
 BoxCollider:
@@ -16619,6 +16781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 94b71774-817a-4912-8804-a7bf3adfc6f8
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &2034709676
 BoxCollider:
@@ -16658,6 +16821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 77e888c7-8a38-4ba3-8453-c1eaad7f5367
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &2034890070
 BoxCollider:
@@ -16807,6 +16971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: d42b9100-6a85-46a6-81e6-6a4c54cf4bad
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &2056228055
 BoxCollider:
@@ -16846,6 +17011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: c790cb17-5472-4c4e-ab31-c10dbed381cc
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &2088073802
 BoxCollider:
@@ -17025,6 +17191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 91538b09-8529-4e0a-a6c3-631bca906b8e
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &2099614909
 BoxCollider:
@@ -17200,6 +17367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: 4bccfabf-4d2f-4243-9a02-a5fc2f62f1a5
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &2126476921
 BoxCollider:
@@ -17318,6 +17486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b30dba5fefbf369f2d908b2a31924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardPickup
+  id: a2a44f84-2cc0-46d8-a133-10172e91a92c
   rewardItem: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
 --- !u!65 &2126769315
 BoxCollider:
@@ -18174,6 +18343,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 165943730}
+  - {fileID: 1190106110}
   - {fileID: 1237562003}
   - {fileID: 694248411}
   - {fileID: 494250266}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StatPickup : MonoBehaviour, IInteractable
+public class StatPickup : PickupBase, IInteractable
 {
     public ItemData statItem;
 
@@ -35,6 +35,7 @@ public class StatPickup : MonoBehaviour, IInteractable
                 );
             }
 
+            MarkAsCollected();
             Destroy(gameObject);
         }
     }

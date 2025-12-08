@@ -29,11 +29,15 @@ public class SaveData
     public List<InventoryItemSaveData> inventoryItems = new List<InventoryItemSaveData>();
     public InventoryItemSaveData rewardItem;
     public InventoryItemSaveData statItem;
+    
+    public List<string> collectedItems = new List<string>();
 }
 
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance;
+    
+    private List<string> _collectedItemsSession = new List<string>();
 
     private void Awake()
     {
@@ -107,6 +111,8 @@ public class SaveManager : MonoBehaviour
                 };
             }
         }
+        
+        data.collectedItems = new List<string>(_collectedItemsSession);
 
         // Serialize and Write
         string json = JsonUtility.ToJson(data, true);
@@ -134,6 +140,10 @@ public class SaveManager : MonoBehaviour
 
     private IEnumerator LoadGameRoutine(SaveData data)
     {
+        // Restore collected items IMMEDIATELY so that when the scene loads, 
+        // ItemPickup.Start() can check this list and destroy itself if needed.
+        _collectedItemsSession = new List<string>(data.collectedItems);
+
         // 1. Load Scene
         if (SceneManager.GetActiveScene().name != data.sceneName)
         {
@@ -146,6 +156,17 @@ public class SaveManager : MonoBehaviour
 
         // Wait a frame to ensure Start methods run
         yield return null;
+
+        // Explicitly destroy collected items to ensure they are gone
+        // This helps if ItemPickup.Start() ran before data was ready or if scene wasn't reloaded
+        ItemPickup[] pickups = FindObjectsOfType<ItemPickup>();
+        foreach (var pickup in pickups)
+        {
+            if (_collectedItemsSession.Contains(pickup.id))
+            {
+                Destroy(pickup.gameObject);
+            }
+        }
 
         // 2. Restore Player State
         PlayerController player = FindObjectOfType<PlayerController>();
@@ -167,7 +188,7 @@ public class SaveManager : MonoBehaviour
             stats.SetHealth(data.currentHealth);
             stats.SetStamina(data.currentStamina);
         }
-
+        
         // 3. Restore Inventory
         if (InventoryManager.Instance != null)
         {
@@ -208,6 +229,24 @@ public class SaveManager : MonoBehaviour
         Debug.Log("Game Loaded!");
     }
     
+    public void MarkAsCollected(string id)
+    {
+        if (!string.IsNullOrEmpty(id) && !_collectedItemsSession.Contains(id))
+        {
+            _collectedItemsSession.Add(id);
+        }
+    }
+
+    public bool IsCollected(string id)
+    {
+        return _collectedItemsSession.Contains(id);
+    }
+
+    public void ClearSessionData()
+    {
+        _collectedItemsSession.Clear();
+    }
+
     public List<string> GetAllSaveFiles()
     {
         string[] filePaths = Directory.GetFiles(Application.persistentDataPath, "*.json");

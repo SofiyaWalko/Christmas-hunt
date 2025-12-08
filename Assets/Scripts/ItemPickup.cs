@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ItemPickup : MonoBehaviour, IInteractable
+public class ItemPickup : PickupBase, IInteractable
 {
     public ItemData itemData;
 
@@ -32,11 +32,14 @@ public class ItemPickup : MonoBehaviour, IInteractable
         {
             InventoryUIController.Instance.ShowNotification("Ура вы победили", "Победа!");
         }
+        
+        MarkAsCollected();
         Destroy(gameObject);
     }
 
     private System.Collections.IEnumerator ShowVictoryNotificationDelayed()
     {
+        MarkAsCollected();
         GetComponent<Collider>().enabled = false;
         var renderer = GetComponent<Renderer>();
         if (renderer != null)
@@ -46,7 +49,7 @@ public class ItemPickup : MonoBehaviour, IInteractable
         InventoryUIController.Instance.ShowVictoryNotification(
             "Ура вы прошли первый уровень!",
             "Победа!",
-            "Location_2"
+            "Location_1"
         );
         Destroy(gameObject);
     }

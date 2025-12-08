@@ -81,7 +81,14 @@ public class MainMenuController : MonoBehaviour
     }
 
     // Укажите имя или индекс сцены с загрузочным экраном
-    private void OnStartGame() => SceneManager.LoadScene("LoadingScreen");
+    private void OnStartGame()
+    {
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.ClearSessionData();
+        }
+        SceneManager.LoadScene("LoadingScreen");
+    }
 
     private void OnOpenSettings() => SceneManager.LoadScene("SettingsMenu");
 
