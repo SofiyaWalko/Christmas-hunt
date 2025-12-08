@@ -2809,6 +2809,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3682030183548636102, guid: 3eeeb88a74c3a30c6a02763bef740474, type: 3}
+      propertyPath: id
+      value: c257f0d6-7c96-4367-a821-b18fb17c9839
+      objectReference: {fileID: 0}
     - target: {fileID: 8562664651566926650, guid: 3eeeb88a74c3a30c6a02763bef740474, type: 3}
       propertyPath: m_Name
       value: StatDiplomation (4)
@@ -15207,7 +15211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   slots: []
   inventorySize: 12
-  clearSpecialSlotsOnStart: 1
+  clearSpecialSlotsOnStart: 0
   rewardSlot:
     item: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
     quantity: 0
@@ -17222,6 +17226,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3682030183548636102, guid: 3eeeb88a74c3a30c6a02763bef740474, type: 3}
+      propertyPath: id
+      value: cc940296-08c7-4311-ab18-3746a61a0c7f
+      objectReference: {fileID: 0}
     - target: {fileID: 8562664651566926650, guid: 3eeeb88a74c3a30c6a02763bef740474, type: 3}
       propertyPath: m_Name
       value: StatDiplomation (2)

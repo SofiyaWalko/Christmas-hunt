@@ -28,19 +28,19 @@ public class SaveData
     public string saveName;
     public string timestamp;
     public string sceneName;
-    
+
     public float positionX;
     public float positionY;
     public float positionZ;
-    
+
     public int currentHealth;
     public float currentStamina;
     public bool doubleJumpUnlocked;
-    
+
     public List<InventoryItemSaveData> inventoryItems = new List<InventoryItemSaveData>();
     public InventoryItemSaveData rewardItem;
     public InventoryItemSaveData statItem;
-    
+
     public List<string> collectedItems = new List<string>();
     public List<NPCSaveData> npcData = new List<NPCSaveData>();
 }
@@ -48,7 +48,9 @@ public class SaveData
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance;
-    
+
+    public bool sessionDoubleJumpUnlocked = false; // Persist across scenes in session
+
     private List<string> _collectedItemsSession = new List<string>();
     private Dictionary<string, NPCSaveData> _npcDataSession = new Dictionary<string, NPCSaveData>();
 
@@ -68,11 +70,11 @@ public class SaveManager : MonoBehaviour
     public void SaveGame()
     {
         SaveData data = new SaveData();
-        
+
         // 1. Player Stats & Position
         PlayerController player = FindObjectOfType<PlayerController>();
         CharacterStats stats = FindObjectOfType<CharacterStats>();
-        
+
         if (player != null)
         {
             data.positionX = player.transform.position.x;
@@ -80,7 +82,7 @@ public class SaveManager : MonoBehaviour
             data.positionZ = player.transform.position.z;
             data.doubleJumpUnlocked = player.IsDoubleJumpUnlocked();
         }
-        
+
         if (stats != null)
         {
             data.currentHealth = stats.currentHealth;
@@ -98,33 +100,41 @@ public class SaveManager : MonoBehaviour
             {
                 if (slot.item != null)
                 {
-                    data.inventoryItems.Add(new InventoryItemSaveData 
-                    { 
-                        itemName = slot.item.itemName, 
-                        quantity = slot.quantity 
-                    });
+                    data.inventoryItems.Add(
+                        new InventoryItemSaveData
+                        {
+                            itemName = slot.item.itemName,
+                            quantity = slot.quantity,
+                        }
+                    );
                 }
             }
 
-            if (InventoryManager.Instance.rewardSlot != null && InventoryManager.Instance.rewardSlot.item != null)
+            if (
+                InventoryManager.Instance.rewardSlot != null
+                && InventoryManager.Instance.rewardSlot.item != null
+            )
             {
                 data.rewardItem = new InventoryItemSaveData
                 {
                     itemName = InventoryManager.Instance.rewardSlot.item.itemName,
-                    quantity = InventoryManager.Instance.rewardSlot.quantity
+                    quantity = InventoryManager.Instance.rewardSlot.quantity,
                 };
             }
 
-            if (InventoryManager.Instance.statSlot != null && InventoryManager.Instance.statSlot.item != null)
+            if (
+                InventoryManager.Instance.statSlot != null
+                && InventoryManager.Instance.statSlot.item != null
+            )
             {
                 data.statItem = new InventoryItemSaveData
                 {
                     itemName = InventoryManager.Instance.statSlot.item.itemName,
-                    quantity = InventoryManager.Instance.statSlot.quantity
+                    quantity = InventoryManager.Instance.statSlot.quantity,
                 };
             }
         }
-        
+
         data.collectedItems = new List<string>(_collectedItemsSession);
 
         // 3. NPCs - Update Session Data first
@@ -140,9 +150,9 @@ public class SaveManager : MonoBehaviour
                     positionY = npc.transform.position.y,
                     positionZ = npc.transform.position.z,
                     currentHealth = npc.GetCurrentHealth(),
-                    isDead = npc.GetCurrentHealth() <= 0
+                    isDead = npc.GetCurrentHealth() <= 0,
                 };
-                
+
                 if (_npcDataSession.ContainsKey(npc.id))
                 {
                     _npcDataSession[npc.id] = npcData;
@@ -153,7 +163,7 @@ public class SaveManager : MonoBehaviour
                 }
             }
         }
-        
+
         // Write ALL session NPC data to save file
         data.npcData = new List<NPCSaveData>(_npcDataSession.Values);
 
@@ -161,7 +171,7 @@ public class SaveManager : MonoBehaviour
         string json = JsonUtility.ToJson(data, true);
         string filename = data.saveName + ".json";
         string path = Path.Combine(Application.persistentDataPath, filename);
-        
+
         File.WriteAllText(path, json);
         Debug.Log("Game Saved to: " + path);
     }
@@ -185,7 +195,7 @@ public class SaveManager : MonoBehaviour
     {
         // Restore collected items IMMEDIATELY
         _collectedItemsSession = new List<string>(data.collectedItems);
-        
+
         // Restore NPC data to session
         _npcDataSession.Clear();
         foreach (var npc in data.npcData)
@@ -218,7 +228,7 @@ public class SaveManager : MonoBehaviour
                 Destroy(pickup.gameObject);
             }
         }
-        
+
         // Explicitly update NPCs
         StatefulAI[] npcs = FindObjectsOfType<StatefulAI>();
         foreach (var npc in npcs)
@@ -233,20 +243,27 @@ public class SaveManager : MonoBehaviour
                 else
                 {
                     // Restore health and position manually if Start() missed it
-                    // Note: We can't easily set health via public property if it's private, 
-                    // but StatefulAI.Start() should have handled it. 
+                    // Note: We can't easily set health via public property if it's private,
+                    // but StatefulAI.Start() should have handled it.
                     // If we need to force it, we might need a public method on StatefulAI.
                     // For now, let's assume Start() worked or we rely on this loop for destruction mainly.
-                    
+
                     // If we want to be sure about position:
-                    UnityEngine.AI.NavMeshAgent agent = npc.GetComponent<UnityEngine.AI.NavMeshAgent>();
+                    UnityEngine.AI.NavMeshAgent agent =
+                        npc.GetComponent<UnityEngine.AI.NavMeshAgent>();
                     if (agent != null)
                     {
-                        agent.Warp(new Vector3(npcData.positionX, npcData.positionY, npcData.positionZ));
+                        agent.Warp(
+                            new Vector3(npcData.positionX, npcData.positionY, npcData.positionZ)
+                        );
                     }
                     else
                     {
-                        npc.transform.position = new Vector3(npcData.positionX, npcData.positionY, npcData.positionZ);
+                        npc.transform.position = new Vector3(
+                            npcData.positionX,
+                            npcData.positionY,
+                            npcData.positionZ
+                        );
                     }
                 }
             }
@@ -259,12 +276,15 @@ public class SaveManager : MonoBehaviour
         if (player != null)
         {
             CharacterController cc = player.GetComponent<CharacterController>();
-            if (cc != null) cc.enabled = false;
-            
+            if (cc != null)
+                cc.enabled = false;
+
             player.transform.position = new Vector3(data.positionX, data.positionY, data.positionZ);
             player.SetDoubleJumpUnlocked(data.doubleJumpUnlocked);
-            
-            if (cc != null) cc.enabled = true;
+            sessionDoubleJumpUnlocked = data.doubleJumpUnlocked; // Update session data
+
+            if (cc != null)
+                cc.enabled = true;
         }
 
         if (stats != null)
@@ -272,7 +292,7 @@ public class SaveManager : MonoBehaviour
             stats.SetHealth(data.currentHealth);
             stats.SetStamina(data.currentStamina);
         }
-        
+
         // 3. Restore Inventory
         if (InventoryManager.Instance != null)
         {
@@ -309,10 +329,10 @@ public class SaveManager : MonoBehaviour
                 }
             }
         }
-        
+
         Debug.Log("Game Loaded!");
     }
-    
+
     public void MarkAsCollected(string id)
     {
         if (!string.IsNullOrEmpty(id) && !_collectedItemsSession.Contains(id))
@@ -325,7 +345,7 @@ public class SaveManager : MonoBehaviour
     {
         return _collectedItemsSession.Contains(id);
     }
-    
+
     public NPCSaveData GetNPCData(string id)
     {
         if (_npcDataSession.ContainsKey(id))
@@ -351,6 +371,7 @@ public class SaveManager : MonoBehaviour
     {
         _collectedItemsSession.Clear();
         _npcDataSession.Clear();
+        sessionDoubleJumpUnlocked = false;
     }
 
     public List<string> GetAllSaveFiles()
@@ -387,9 +408,10 @@ public class SaveManager : MonoBehaviour
     public SaveData GetSaveData(string saveFileName)
     {
         string path = Path.Combine(Application.persistentDataPath, saveFileName);
-        if (!File.Exists(path)) return null;
-        
-        try 
+        if (!File.Exists(path))
+            return null;
+
+        try
         {
             string json = File.ReadAllText(path);
             return JsonUtility.FromJson<SaveData>(json);

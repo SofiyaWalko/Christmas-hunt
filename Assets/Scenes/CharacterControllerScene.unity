@@ -3079,7 +3079,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   slots: []
   inventorySize: 12
-  clearSpecialSlotsOnStart: 1
+  clearSpecialSlotsOnStart: 0
   rewardSlot:
     item: {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
     quantity: 0

@@ -13,7 +13,7 @@ public class InventoryManager : MonoBehaviour
 
     // If true, clear `rewardSlot` and `statSlot` on game start so pickups
     // are not pre-populated from inspector during development.
-    public bool clearSpecialSlotsOnStart = true;
+    public bool clearSpecialSlotsOnStart = false;
 
     // Специальный слот для подарка (всегда один)
     public InventorySlot rewardSlot;
