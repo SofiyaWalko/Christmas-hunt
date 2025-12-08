@@ -59,6 +59,13 @@ public class CharacterStats : MonoBehaviour
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
+    public void SetHealth(int amount)
+    {
+        currentHealth = amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+    }
+
     private void Die()
     {
         Debug.Log(transform.name + " died.");
@@ -83,6 +90,13 @@ public class CharacterStats : MonoBehaviour
         currentStamina += amount * Time.deltaTime;
         currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
 
+        OnStaminaChanged?.Invoke(currentStamina, maxStamina);
+    }
+
+    public void SetStamina(float amount)
+    {
+        currentStamina = amount;
+        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
         OnStaminaChanged?.Invoke(currentStamina, maxStamina);
     }
 }

@@ -907,6 +907,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee428f055422ac7deb1e4a4e43afaba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenuController
+  saveGameMenuTemplate: {fileID: 9197481963319205126, guid: 3a1a4e3c059a493dca37d93956f1447b, type: 3}
+  loadGameMenuTemplate: {fileID: 9197481963319205126, guid: 927608ece18d9987287feea410d0928d, type: 3}
 --- !u!4 &260815909
 Transform:
   m_ObjectHideFlags: 0
@@ -3014,6 +3016,13 @@ MonoBehaviour:
   statSlot:
     item: {fileID: 11400000, guid: 149673d233555a785ad21fea1990fec2, type: 2}
     quantity: 0
+  allItemsDatabase:
+  - {fileID: 11400000, guid: bc2212c439a91fa4c8ebd8b4fed265af, type: 2}
+  - {fileID: 11400000, guid: 918403b6d539bdcda98565d85efe461e, type: 2}
+  - {fileID: 11400000, guid: 884282a2219fa7340b04d2dc65b3543f, type: 2}
+  - {fileID: 11400000, guid: 109e423ca1479dacf890a439f71eaef0, type: 2}
+  - {fileID: 11400000, guid: 751d2e304d5302133966eb0099669c63, type: 2}
+  - {fileID: 11400000, guid: 149673d233555a785ad21fea1990fec2, type: 2}
 --- !u!4 &1794405711
 Transform:
   m_ObjectHideFlags: 0

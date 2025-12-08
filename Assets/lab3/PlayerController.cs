@@ -38,6 +38,9 @@ public class PlayerController : MonoBehaviour
     private bool canDoubleJump; 
     private bool doubleJumpUnlocked = false;
 
+    public bool IsDoubleJumpUnlocked() => doubleJumpUnlocked;
+    public void SetDoubleJumpUnlocked(bool unlocked) => doubleJumpUnlocked = unlocked;
+
     private CharacterStats stats;
 
     private CharacterController controller;

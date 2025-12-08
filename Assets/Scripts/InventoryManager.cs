@@ -21,6 +21,67 @@ public class InventoryManager : MonoBehaviour
     // Специальный слот для stat (всегда один)
     public InventorySlot statSlot;
 
+    [Header("Database")]
+    public List<ItemData> allItemsDatabase; 
+
+    public ItemData GetItemByName(string name)
+    {
+        if (allItemsDatabase == null) return null;
+        return allItemsDatabase.Find(i => i.itemName == name);
+    }
+
+    public void ClearInventory()
+    {
+        slots.Clear();
+        rewardSlot = null;
+        statSlot = null;
+        OnInventoryChanged?.Invoke();
+    }
+
+    public void AddItem(ItemData item, int quantity)
+    {
+        if (item.isStackable)
+        {
+             foreach (InventorySlot slot in slots)
+             {
+                 if (slot.item == item)
+                 {
+                     slot.AddQuantity(quantity);
+                     OnInventoryChanged?.Invoke();
+                     return;
+                 }
+             }
+             if (slots.Count < inventorySize)
+             {
+                 slots.Add(new InventorySlot(item, quantity));
+                 OnInventoryChanged?.Invoke();
+             }
+        }
+        else
+        {
+            for(int i=0; i<quantity; i++)
+            {
+                if (slots.Count < inventorySize)
+                {
+                    slots.Add(new InventorySlot(item, 1));
+                }
+            }
+            OnInventoryChanged?.Invoke();
+        }
+    }
+
+    public void SetRewardSlot(ItemData item, int quantity)
+    {
+        rewardSlot = new InventorySlot(item, quantity);
+        OnInventoryChanged?.Invoke();
+    }
+
+    public void SetStatSlot(ItemData item, int quantity)
+    {
+        statSlot = new InventorySlot(item, quantity);
+        OnInventoryChanged?.Invoke();
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
