@@ -2908,6 +2908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatefulAI
   npcType: 0
+  id: 666a8103-5016-469b-a509-7352fd89d218
   awarenessRange: 5
   interactionDistance: 5
   patrolPoints:
@@ -3896,6 +3897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatefulAI
   npcType: 1
+  id: 96618b15-7aeb-4eda-94b8-14d728cac82c
   awarenessRange: 5
   interactionDistance: 2.5
   patrolPoints: []
@@ -4711,6 +4713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatefulAI
   npcType: 1
+  id: 15db97fb-59dd-457f-a7f3-fd8066e378d2
   awarenessRange: 5
   interactionDistance: 2.5
   patrolPoints: []

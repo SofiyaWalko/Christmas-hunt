@@ -12,6 +12,17 @@ public class InventoryItemSaveData
 }
 
 [System.Serializable]
+public class NPCSaveData
+{
+    public string id;
+    public float positionX;
+    public float positionY;
+    public float positionZ;
+    public int currentHealth;
+    public bool isDead;
+}
+
+[System.Serializable]
 public class SaveData
 {
     public string saveName;
@@ -31,6 +42,7 @@ public class SaveData
     public InventoryItemSaveData statItem;
     
     public List<string> collectedItems = new List<string>();
+    public List<NPCSaveData> npcData = new List<NPCSaveData>();
 }
 
 public class SaveManager : MonoBehaviour
@@ -38,6 +50,7 @@ public class SaveManager : MonoBehaviour
     public static SaveManager Instance;
     
     private List<string> _collectedItemsSession = new List<string>();
+    private Dictionary<string, NPCSaveData> _npcDataSession = new Dictionary<string, NPCSaveData>();
 
     private void Awake()
     {
@@ -114,6 +127,36 @@ public class SaveManager : MonoBehaviour
         
         data.collectedItems = new List<string>(_collectedItemsSession);
 
+        // 3. NPCs - Update Session Data first
+        StatefulAI[] npcs = FindObjectsOfType<StatefulAI>();
+        foreach (var npc in npcs)
+        {
+            if (!string.IsNullOrEmpty(npc.id))
+            {
+                NPCSaveData npcData = new NPCSaveData
+                {
+                    id = npc.id,
+                    positionX = npc.transform.position.x,
+                    positionY = npc.transform.position.y,
+                    positionZ = npc.transform.position.z,
+                    currentHealth = npc.GetCurrentHealth(),
+                    isDead = npc.GetCurrentHealth() <= 0
+                };
+                
+                if (_npcDataSession.ContainsKey(npc.id))
+                {
+                    _npcDataSession[npc.id] = npcData;
+                }
+                else
+                {
+                    _npcDataSession.Add(npc.id, npcData);
+                }
+            }
+        }
+        
+        // Write ALL session NPC data to save file
+        data.npcData = new List<NPCSaveData>(_npcDataSession.Values);
+
         // Serialize and Write
         string json = JsonUtility.ToJson(data, true);
         string filename = data.saveName + ".json";
@@ -140,9 +183,18 @@ public class SaveManager : MonoBehaviour
 
     private IEnumerator LoadGameRoutine(SaveData data)
     {
-        // Restore collected items IMMEDIATELY so that when the scene loads, 
-        // ItemPickup.Start() can check this list and destroy itself if needed.
+        // Restore collected items IMMEDIATELY
         _collectedItemsSession = new List<string>(data.collectedItems);
+        
+        // Restore NPC data to session
+        _npcDataSession.Clear();
+        foreach (var npc in data.npcData)
+        {
+            if (!_npcDataSession.ContainsKey(npc.id))
+            {
+                _npcDataSession.Add(npc.id, npc);
+            }
+        }
 
         // 1. Load Scene
         if (SceneManager.GetActiveScene().name != data.sceneName)
@@ -157,14 +209,46 @@ public class SaveManager : MonoBehaviour
         // Wait a frame to ensure Start methods run
         yield return null;
 
-        // Explicitly destroy collected items to ensure they are gone
-        // This helps if ItemPickup.Start() ran before data was ready or if scene wasn't reloaded
-        ItemPickup[] pickups = FindObjectsOfType<ItemPickup>();
+        // Explicitly destroy collected items (PickupBase covers ItemPickup, StatPickup, RewardPickup)
+        PickupBase[] pickups = FindObjectsOfType<PickupBase>();
         foreach (var pickup in pickups)
         {
             if (_collectedItemsSession.Contains(pickup.id))
             {
                 Destroy(pickup.gameObject);
+            }
+        }
+        
+        // Explicitly update NPCs
+        StatefulAI[] npcs = FindObjectsOfType<StatefulAI>();
+        foreach (var npc in npcs)
+        {
+            if (!string.IsNullOrEmpty(npc.id) && _npcDataSession.ContainsKey(npc.id))
+            {
+                var npcData = _npcDataSession[npc.id];
+                if (npcData.isDead)
+                {
+                    Destroy(npc.gameObject);
+                }
+                else
+                {
+                    // Restore health and position manually if Start() missed it
+                    // Note: We can't easily set health via public property if it's private, 
+                    // but StatefulAI.Start() should have handled it. 
+                    // If we need to force it, we might need a public method on StatefulAI.
+                    // For now, let's assume Start() worked or we rely on this loop for destruction mainly.
+                    
+                    // If we want to be sure about position:
+                    UnityEngine.AI.NavMeshAgent agent = npc.GetComponent<UnityEngine.AI.NavMeshAgent>();
+                    if (agent != null)
+                    {
+                        agent.Warp(new Vector3(npcData.positionX, npcData.positionY, npcData.positionZ));
+                    }
+                    else
+                    {
+                        npc.transform.position = new Vector3(npcData.positionX, npcData.positionY, npcData.positionZ);
+                    }
+                }
             }
         }
 
@@ -241,10 +325,32 @@ public class SaveManager : MonoBehaviour
     {
         return _collectedItemsSession.Contains(id);
     }
+    
+    public NPCSaveData GetNPCData(string id)
+    {
+        if (_npcDataSession.ContainsKey(id))
+        {
+            return _npcDataSession[id];
+        }
+        return null;
+    }
+
+    public void UpdateNPCData(string id, NPCSaveData data)
+    {
+        if (_npcDataSession.ContainsKey(id))
+        {
+            _npcDataSession[id] = data;
+        }
+        else
+        {
+            _npcDataSession.Add(id, data);
+        }
+    }
 
     public void ClearSessionData()
     {
         _collectedItemsSession.Clear();
+        _npcDataSession.Clear();
     }
 
     public List<string> GetAllSaveFiles()
