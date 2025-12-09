@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class RewardPickup : MonoBehaviour
+public class RewardPickup : PickupBase
 {
     public ItemData rewardItem;
 
-    private void Reset()
+    protected override void Reset()
     {
+        base.Reset();
         // Попробуем сделать коллайдер триггером по умолчанию
         var col = GetComponent<Collider>();
         if (col == null)
@@ -33,6 +34,7 @@ public class RewardPickup : MonoBehaviour
         if (added)
         {
             Debug.Log($"Награда {rewardItem.itemName} подобрана!");
+            MarkAsCollected();
             Destroy(gameObject);
         }
     }

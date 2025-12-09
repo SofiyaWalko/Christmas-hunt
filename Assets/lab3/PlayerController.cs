@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
     [Header("Gravity & Jump")]
     public float gravity = -5.0f;
     public float jumpHeight = 5f;
-    private Vector3 playerVelocity; 
-    private bool isGrounded; 
+    private Vector3 playerVelocity;
+    private bool isGrounded;
 
     [Header("Ground Check")]
     public LayerMask groundMask;
@@ -35,8 +35,21 @@ public class PlayerController : MonoBehaviour
 
     private bool isSprinting;
     private bool sprintButtonHeld;
-    private bool canDoubleJump; 
+    private bool canDoubleJump;
+
+    [SerializeField]
     private bool doubleJumpUnlocked = false;
+
+    public bool IsDoubleJumpUnlocked() => doubleJumpUnlocked;
+
+    public void SetDoubleJumpUnlocked(bool unlocked)
+    {
+        doubleJumpUnlocked = unlocked;
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.sessionDoubleJumpUnlocked = unlocked;
+        }
+    }
 
     private CharacterStats stats;
 
@@ -47,12 +60,11 @@ public class PlayerController : MonoBehaviour
     private IInteractable currentInteractable;
     public static event System.Action<string> OnInteractableFocusChanged;
 
-
     // <<< ADD: Переменные для платформы
     private Transform currentPlatform;
     private Vector3 lastPlatformPos;
-    // >>>
 
+    // >>>
 
     private void Awake()
     {
@@ -61,7 +73,20 @@ public class PlayerController : MonoBehaviour
         cameraTransform = Camera.main.transform;
         stats = GetComponent<CharacterStats>();
     }
-    
+
+    private void Start()
+    {
+        if (SaveManager.Instance != null)
+        {
+            doubleJumpUnlocked = SaveManager.Instance.sessionDoubleJumpUnlocked;
+            Debug.Log($"[PlayerController] Restored Double Jump state: {doubleJumpUnlocked}");
+        }
+        else
+        {
+            Debug.LogWarning("[PlayerController] SaveManager instance is null!");
+        }
+    }
+
     // Update вызывается каждый кадр
     void Update()
     {
@@ -77,16 +102,16 @@ public class PlayerController : MonoBehaviour
         {
             if (currentPlatform != null)
             {
-                TriggeredMovingPlatform platform = currentPlatform.GetComponent<TriggeredMovingPlatform>();
+                TriggeredMovingPlatform platform =
+                    currentPlatform.GetComponent<TriggeredMovingPlatform>();
                 if (platform != null)
                     platform.Deactivate();
             }
-        
+
             currentPlatform = null;
         }
         // >>>
     }
-
 
     // Движение
     public void OnMove(InputValue value)
@@ -132,7 +157,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void GroundCheck()
     {
         float sphereRadius = controller.radius;
@@ -151,7 +175,6 @@ public class PlayerController : MonoBehaviour
         {
             float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
 
-
             // Если угол меньше допустимого, мы считаемся "на земле"
             if (slopeAngle <= maxSlopeAngle)
             {
@@ -164,11 +187,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
         // Если луч ничего не нашел или угол слишком крутой, мы в воздухе.
         isGrounded = false;
     }
-
 
     private void HandleGravity()
     {
@@ -182,8 +203,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Speed", speedValue, 0.1f, Time.deltaTime);
         animator.SetBool("IsGrounded", isGrounded);
     }
-    
-    
+
     private void CheckInteractionFocus()
     {
         Vector3 rayOrigin = interactionRayPoint.position;
@@ -231,11 +251,11 @@ public class PlayerController : MonoBehaviour
             OnInteractableFocusChanged?.Invoke(hintText);
         }
     }
-    
 
     public void OnInteract(InputValue value)
     {
-        if (!value.isPressed) return;
+        if (!value.isPressed)
+            return;
 
         if (currentInteractable != null)
         {
@@ -244,7 +264,6 @@ public class PlayerController : MonoBehaviour
             currentInteractable = null;
         }
     }
-
 
     public void OnSprint(InputValue value)
     {
@@ -279,7 +298,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     // <<< ADD: обнаружение столкновения с платформой
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -308,8 +326,8 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    // >>>
 
+    // >>>
 
     // <<< ADD: движение вместе с платформой
     private void LateUpdate()
@@ -321,11 +339,12 @@ public class PlayerController : MonoBehaviour
             lastPlatformPos = currentPlatform.position;
         }
     }
+
     // >>>
 
     public void UnlockDoubleJump()
     {
-        doubleJumpUnlocked = true;
+        SetDoubleJumpUnlocked(true);
         Debug.Log("Double Jump Unlocked!");
     }
 }

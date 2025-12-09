@@ -23,11 +23,50 @@ public class StatefulAI : MonoBehaviour, IInteractable
     [Header("NPC Type")]
     [Tooltip("Тип NPC: дружелюбный или враждебный.")]
     public NPCType npcType = NPCType.Friendly;
+    
+    [Header("Save System")]
+    public string id;
+
     private AIState currentState;
 
     private NavMeshAgent agent;
     private Animator animator;
     private Transform player;
+
+    [ContextMenu("Generate ID")]
+    public void GenerateId()
+    {
+        id = System.Guid.NewGuid().ToString();
+    }
+
+    private void OnValidate()
+    {
+#if UNITY_EDITOR
+        if (string.IsNullOrEmpty(id))
+        {
+            GenerateId();
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+        else
+        {
+            StatefulAI[] npcs = FindObjectsOfType<StatefulAI>();
+            foreach (var npc in npcs)
+            {
+                if (npc != this && npc.id == id)
+                {
+                    GenerateId();
+                    UnityEditor.EditorUtility.SetDirty(this);
+                    return;
+                }
+            }
+        }
+#endif
+    }
+
+    private void Reset()
+    {
+        GenerateId();
+    }
 
     [Header("Detection Settings")]
     public float awarenessRange = 5f;
@@ -78,6 +117,31 @@ public class StatefulAI : MonoBehaviour, IInteractable
         // Инициализируем здоровье
         currentHealth = maxHealth;
 
+        // Load saved data if available
+        if (SaveManager.Instance != null)
+        {
+            NPCSaveData data = SaveManager.Instance.GetNPCData(id);
+            if (data != null)
+            {
+                if (data.isDead)
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+                
+                currentHealth = data.currentHealth;
+                
+                if (agent != null)
+                {
+                    agent.Warp(new Vector3(data.positionX, data.positionY, data.positionZ));
+                }
+                else
+                {
+                    transform.position = new Vector3(data.positionX, data.positionY, data.positionZ);
+                }
+            }
+        }
+
         // Инициализируем полоску здоровья если есть
         if (healthBar != null)
         {
@@ -86,6 +150,11 @@ public class StatefulAI : MonoBehaviour, IInteractable
 
         // Начинаем с состояния ожидания, чтобы сразу выбрать первую точку
         ChangeState(AIState.Idle);
+    }
+    
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
     }
 
     private void Update()
@@ -373,6 +442,20 @@ public class StatefulAI : MonoBehaviour, IInteractable
     {
         Debug.Log($"{transform.name} умер!");
 
+        if (SaveManager.Instance != null && !string.IsNullOrEmpty(id))
+        {
+            NPCSaveData data = new NPCSaveData
+            {
+                id = this.id,
+                positionX = transform.position.x,
+                positionY = transform.position.y,
+                positionZ = transform.position.z,
+                currentHealth = 0,
+                isDead = true
+            };
+            SaveManager.Instance.UpdateNPCData(this.id, data);
+        }
+
         // Можно добавить анимацию смерти, звук и т.д.
         // animator.SetTrigger("Death");
 
@@ -413,15 +496,23 @@ public class StatefulAI : MonoBehaviour, IInteractable
         // Вычисляем направление к игроку
         Vector3 directionToPlayer = (player.position - shootPoint.position).normalized;
 
-        // Создаем снежок
-        GameObject snowballObj = Instantiate(
-            snowballPrefab,
-            shootPoint.position,
-            Quaternion.identity
-        );
+        // Получаем снежок из пула или создаем новый (для совместимости)
+        Snowball snowball;
+        if (SnowballPool.Instance != null)
+        {
+            snowball = SnowballPool.Instance.GetSnowball(shootPoint.position);
+        }
+        else
+        {
+            // Fallback: создаем снежок напрямую, если пула нет
+            GameObject snowballObj = Instantiate(
+                snowballPrefab,
+                shootPoint.position,
+                Quaternion.identity
+            );
+            snowball = snowballObj.GetComponent<Snowball>();
+        }
 
-        // Получаем компонент Snowball и запускаем его
-        Snowball snowball = snowballObj.GetComponent<Snowball>();
         if (snowball != null)
         {
             // Устанавливаем тип стрелка - NPC

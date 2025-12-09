@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="container" style="flex-grow: 1;">
+        <ui:VisualElement name="buttons-container" style="flex-grow: 1; height: 10px; min-height: 10px; max-height: 50px; align-self: auto; align-items: flex-start; flex-wrap: nowrap; flex-direction: row; justify-content: center;">
+            <ui:Button text="Сохранить" name="save-game" style="width: 48%; height: auto;" />
+            <ui:Button text="Удалить" name="delete-game" style="width: 48%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="saves-container" style="flex-grow: 1;" />
+    </ui:VisualElement>
+</ui:UXML>
