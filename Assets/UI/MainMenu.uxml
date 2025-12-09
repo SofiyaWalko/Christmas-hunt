@@ -2,6 +2,7 @@
     <Style src="project://database/Assets/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=9e990e7629a4908609df837e3eb4b715&amp;type=3#MainMenu" />
     <ui:VisualElement name="container" style="flex-grow: 1;">
         <ui:Button text="Начать игру" name="start-button" />
+        <ui:Button text="Загрузить" name="load-button" />
         <ui:Button text="Настройки" name="settings-button" />
         <ui:Button text="Выход" name="quit-button" />
     </ui:VisualElement>

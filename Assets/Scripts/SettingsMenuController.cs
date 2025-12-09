@@ -8,7 +8,8 @@ public class SettingsMenuController : MonoBehaviour
 {
     public AudioMixer audioMixer; // Ссылку нужно будет указать в инспекторе
 
-    private Slider _volumeSlider;
+    private Slider _musicVolumeSlider;
+    private Slider _sfxVolumeSlider;
     private DropdownField _qualityDropdown;
     private Button _backButton;
 
@@ -16,7 +17,8 @@ public class SettingsMenuController : MonoBehaviour
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
 
-        _volumeSlider = root.Q<Slider>("volume-slider");
+        _musicVolumeSlider = root.Q<Slider>("music-volume-slider");
+        _sfxVolumeSlider = root.Q<Slider>("sfx-volume-slider");
         _qualityDropdown = root.Q<DropdownField>("quality-dropdown");
         _backButton = root.Q<Button>("back-button");
 
@@ -24,34 +26,76 @@ public class SettingsMenuController : MonoBehaviour
         _qualityDropdown.choices = new List<string> { "Низкое", "Среднее", "Высокое" };
 
         // Подписываемся на события
-        _volumeSlider.RegisterValueChangedCallback(OnVolumeChanged);
+        _musicVolumeSlider.RegisterValueChangedCallback(OnMusicVolumeChanged);
+        _sfxVolumeSlider.RegisterValueChangedCallback(OnSFXVolumeChanged);
         _qualityDropdown.RegisterValueChangedCallback(OnQualityChanged);
         _backButton.clicked += OnBackToMainMenu;
 
         LoadSettings();
     }
 
+    private void OnDisable()
+    {
+        if (_musicVolumeSlider != null)
+            _musicVolumeSlider.UnregisterValueChangedCallback(OnMusicVolumeChanged);
+        
+        if (_sfxVolumeSlider != null)
+            _sfxVolumeSlider.UnregisterValueChangedCallback(OnSFXVolumeChanged);
+        
+        if (_qualityDropdown != null)
+            _qualityDropdown.UnregisterValueChangedCallback(OnQualityChanged);
+        
+        if (_backButton != null)
+            _backButton.clicked -= OnBackToMainMenu;
+    }
+
     private void LoadSettings()
     {
-        // Загружаем и применяем громкость
-        float volume = PlayerPrefs.GetFloat("volume", 0.75f);
-        _volumeSlider.value = volume;
-        SetVolume(volume);
+        // Загружаем и применяем музыку
+        float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.7f);
+        _musicVolumeSlider.value = musicVolume * 100;
+        SetMusicVolume(musicVolume);
+
+        // Загружаем и применяем звуки игры
+        float sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.7f);
+        _sfxVolumeSlider.value = sfxVolume * 100;
+        SetSFXVolume(sfxVolume);
+
         // Загружаем и применяем качество
         int qualityIndex = PlayerPrefs.GetInt("quality", 1); // 1 - среднее
         _qualityDropdown.index = qualityIndex;
         SetQuality(qualityIndex);
     }
 
-    private void OnVolumeChanged(ChangeEvent<float> evt) => SetVolume(evt.newValue);
+    private void OnMusicVolumeChanged(ChangeEvent<float> evt) => SetMusicVolume(evt.newValue / 100f);
+
+    private void OnSFXVolumeChanged(ChangeEvent<float> evt) => SetSFXVolume(evt.newValue / 100f);
 
     private void OnQualityChanged(ChangeEvent<string> evt) => SetQuality(_qualityDropdown.index);
 
-    private void SetVolume(float volume)
+    private void SetMusicVolume(float volume)
     {
-        PlayerPrefs.SetFloat("volume", volume);
-        // Для AudioMixer нужно значение в децибелах
-        audioMixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20);
+        volume = Mathf.Clamp01(volume);
+        PlayerPrefs.SetFloat("MusicVolume", volume);
+        
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetMusicVolume(volume);
+        }
+        
+        PlayerPrefs.Save();
+    }
+
+    private void SetSFXVolume(float volume)
+    {
+        volume = Mathf.Clamp01(volume);
+        PlayerPrefs.SetFloat("SFXVolume", volume);
+        
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetSFXVolume(volume);
+        }
+        
         PlayerPrefs.Save();
     }
 

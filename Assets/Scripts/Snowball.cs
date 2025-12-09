@@ -27,6 +27,7 @@ public class Snowball : MonoBehaviour
 
     private Rigidbody rb;
     private float spawnTime;
+    private SnowballPool pool; // Ссылка на пул объектов
 
     private void Awake()
     {
@@ -45,6 +46,9 @@ public class Snowball : MonoBehaviour
     /// </summary>
     public void Launch(Vector3 direction, float speed)
     {
+        // ВАЖНО: сбрасываем время спавна при каждом запуске
+        spawnTime = Time.time;
+        
         // Устанавливаем скорость в направлении полета
         rb.linearVelocity = direction.normalized * speed;
     }
@@ -57,11 +61,39 @@ public class Snowball : MonoBehaviour
         shooterType = type;
     }
 
+    /// <summary>
+    /// Установка пула объектов
+    /// </summary>
+    public void SetPool(SnowballPool snowballPool)
+    {
+        pool = snowballPool;
+    }
+
     private void Update()
     {
         // Проверяем, не истекло ли время жизни
         if (Time.time - spawnTime >= lifetime)
         {
+            ReturnToPool();
+        }
+    }
+
+    /// <summary>
+    /// Возвращает снежок в пул вместо уничтожения
+    /// </summary>
+    private void ReturnToPool()
+    {
+        if (pool != null)
+        {
+            // Полностью очищаем состояние снежка перед возвратом в пул
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            
+            pool.ReturnSnowball(this);
+        }
+        else
+        {
+            // Если нет пула, уничтожаем объект (fallback)
             Destroy(gameObject);
         }
     }
@@ -82,8 +114,8 @@ public class Snowball : MonoBehaviour
                     Debug.Log($"Snowball hit player! Dealt {damage} damage.");
                 }
 
-                // Уничтожаем снежок после попадания
-                Destroy(gameObject);
+                // Возвращаем снежок в пул
+                ReturnToPool();
             }
         }
         else if (shooterType == ShooterType.Player)
@@ -96,8 +128,8 @@ public class Snowball : MonoBehaviour
                 npcAI.TakeDamage(damage);
                 Debug.Log($"Snowball hit NPC! Dealt {damage} damage.");
 
-                // Уничтожаем снежок после попадания
-                Destroy(gameObject);
+                // Возвращаем снежок в пул
+                ReturnToPool();
             }
         }
     }
