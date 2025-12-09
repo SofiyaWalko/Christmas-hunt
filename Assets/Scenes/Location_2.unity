@@ -6793,6 +6793,7 @@ GameObject:
   - component: {fileID: 694248412}
   - component: {fileID: 694248416}
   - component: {fileID: 694248417}
+  - component: {fileID: 694248418}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -6813,6 +6814,7 @@ Transform:
   m_LocalScale: {x: 1, y: 0.80761, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1328750480}
   - {fileID: 1554677670}
   - {fileID: 644128750}
   m_Father: {fileID: 0}
@@ -6844,6 +6846,7 @@ MonoBehaviour:
   interactionRayPoint: {fileID: 644128750}
   sprintSpeed: 7
   staminaUsePerSecond: 15
+  doubleJumpUnlocked: 0
 --- !u!114 &694248413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6950,6 +6953,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFallHandler
   fallThreshold: -50
+--- !u!114 &694248418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694248410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0449f34d8b689cd3bf1a0b96ae564fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSnowballThrower
+  snowballPrefab: {fileID: 8562664651566926650, guid: ced39fcfcf278f07cbbdac90752d9181, type: 3}
+  shootPoint: {fileID: 1328750480}
+  snowballSpeed: 20
+  shootingCooldown: 0.5
 --- !u!1001 &714652687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11803,6 +11822,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.58, y: 1.69, z: 1.63}
   m_Center: {x: 0.13, y: 0, z: 0}
+--- !u!1 &1328750479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1328750480}
+  m_Layer: 0
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1328750480
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328750479}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.12700002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 694248411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1333614253
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -496,15 +496,23 @@ public class StatefulAI : MonoBehaviour, IInteractable
         // Вычисляем направление к игроку
         Vector3 directionToPlayer = (player.position - shootPoint.position).normalized;
 
-        // Создаем снежок
-        GameObject snowballObj = Instantiate(
-            snowballPrefab,
-            shootPoint.position,
-            Quaternion.identity
-        );
+        // Получаем снежок из пула или создаем новый (для совместимости)
+        Snowball snowball;
+        if (SnowballPool.Instance != null)
+        {
+            snowball = SnowballPool.Instance.GetSnowball(shootPoint.position);
+        }
+        else
+        {
+            // Fallback: создаем снежок напрямую, если пула нет
+            GameObject snowballObj = Instantiate(
+                snowballPrefab,
+                shootPoint.position,
+                Quaternion.identity
+            );
+            snowball = snowballObj.GetComponent<Snowball>();
+        }
 
-        // Получаем компонент Snowball и запускаем его
-        Snowball snowball = snowballObj.GetComponent<Snowball>();
         if (snowball != null)
         {
             // Устанавливаем тип стрелка - NPC

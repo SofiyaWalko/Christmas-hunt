@@ -11,17 +11,17 @@ public class PlayerSnowballThrower : MonoBehaviour
     [Header("Snowball Settings")]
     [Tooltip("Префаб снежка для стрельбы")]
     public GameObject snowballPrefab;
-    
+
     [Header("Shooting Settings")]
     [Tooltip("Точка спавна снежка (обычно камера игрока)")]
     public Transform shootPoint;
-    
+
     [Tooltip("Скорость полета снежка")]
     public float snowballSpeed = 20f;
-    
+
     [Tooltip("Интервал между выстрелами в секундах")]
     public float shootingCooldown = 0.5f;
-    
+
     private float lastShootTime = -999f;
     private Camera playerCamera;
     private PlayerControls controls;
@@ -36,7 +36,7 @@ public class PlayerSnowballThrower : MonoBehaviour
     {
         // Включаем Input Actions
         controls.Enable();
-        
+
         // Подписываемся на действие "Catch" (ЛКМ)
         controls.Gameplay.Catch.performed += OnCatchPerformed;
     }
@@ -45,7 +45,7 @@ public class PlayerSnowballThrower : MonoBehaviour
     {
         // Отписываемся от действия
         controls.Gameplay.Catch.performed -= OnCatchPerformed;
-        
+
         // Отключаем Input Actions
         controls.Disable();
     }
@@ -54,7 +54,7 @@ public class PlayerSnowballThrower : MonoBehaviour
     {
         // Получаем камеру игрока
         playerCamera = Camera.main;
-        
+
         // Если точка спавна не назначена, используем камеру
         if (shootPoint == null && playerCamera != null)
         {
@@ -79,7 +79,7 @@ public class PlayerSnowballThrower : MonoBehaviour
         if (Time.time - lastShootTime < shootingCooldown)
             return;
 
-        // Проверяем наличие префаба
+        // Проверяем наличие префаба (для совместимости, если пул не инициализирован)
         if (snowballPrefab == null)
         {
             Debug.LogWarning("PlayerSnowballThrower: Snowball prefab не назначен!");
@@ -96,23 +96,34 @@ public class PlayerSnowballThrower : MonoBehaviour
         // Вычисляем направление выстрела (от камеры вперед)
         Vector3 shootDirection = shootPoint.forward;
 
-        // Создаем снежок
-        GameObject snowballObj = Instantiate(snowballPrefab, shootPoint.position, Quaternion.identity);
-        
-        // Получаем компонент Snowball и настраиваем его
-        Snowball snowball = snowballObj.GetComponent<Snowball>();
+        // Получаем снежок из пула или создаем новый (для совместимости)
+        Snowball snowball;
+        if (SnowballPool.Instance != null)
+        {
+            snowball = SnowballPool.Instance.GetSnowball(shootPoint.position);
+        }
+        else
+        {
+            // Fallback: создаем снежок напрямую, если пула нет
+            GameObject snowballObj = Instantiate(
+                snowballPrefab,
+                shootPoint.position,
+                Quaternion.identity
+            );
+            snowball = snowballObj.GetComponent<Snowball>();
+        }
+
         if (snowball != null)
         {
             // Устанавливаем тип стрелка - игрок
             snowball.SetShooterType(Snowball.ShooterType.Player);
-            
+
             // Запускаем снежок
             snowball.Launch(shootDirection, snowballSpeed);
         }
         else
         {
             Debug.LogError("Префаб снежка не содержит компонент Snowball!");
-            Destroy(snowballObj);
             return;
         }
 
