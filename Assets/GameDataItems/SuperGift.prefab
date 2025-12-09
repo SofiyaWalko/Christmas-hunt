@@ -124,5 +124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799c1da5b86bead49a93b5de4cd8d786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  id: 48acfaa4-89cf-4733-8ca1-21c7a6ee25cf
+  id: 3ea10a7c-35b2-4958-8ec2-04ac5b9c3e26
   itemData: {fileID: 11400000, guid: 751d2e304d5302133966eb0099669c63, type: 2}

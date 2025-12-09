@@ -3,9 +3,10 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(SurfaceDetector))]
 public class PlayerSoundController : MonoBehaviour
 {
-    [Header("Audio Clips")]
+    [Header("Default Audio Clips")]
     public AudioClip footstepClip;
     public AudioClip jumpClip;
 
@@ -16,15 +17,19 @@ public class PlayerSoundController : MonoBehaviour
     private PlayerInput _playerInput;
     private InputAction _moveAction;
     private InputAction _jumpAction;
+    
+    private SurfaceDetector _surfaceDetector;
+    private SurfaceMaterial _currentMaterial;
 
     private float _stepTimer;
     private bool _isMoving;
-    private bool _wasMoving; // Отслеживаем изменение состояния
+    private bool _wasMoving;
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
         _playerInput = GetComponent<PlayerInput>();
+        _surfaceDetector = GetComponent<SurfaceDetector>();
 
         _moveAction = _playerInput.actions["Move"];
         _jumpAction = _playerInput.actions["Jump"];
@@ -56,10 +61,8 @@ public class PlayerSoundController : MonoBehaviour
         }
         else
         {
-            // Когда остановились, сбрасываем таймер
             _stepTimer = 0;
             
-            // Если только что перестали ходить, останавливаем звук
             if (_wasMoving)
             {
                 _audioSource.Stop();
@@ -71,15 +74,69 @@ public class PlayerSoundController : MonoBehaviour
 
     private void PlayFootstep()
     {
-        _audioSource.pitch = Random.Range(0.9f, 1.1f);
-        _audioSource.volume = AudioManager.Instance != null ? AudioManager.Instance.GetSFXVolume() : 1f;
-        _audioSource.PlayOneShot(footstepClip);
+        AudioClip clipToPlay = footstepClip;
+        float pitchMin = 0.9f;
+        float pitchMax = 1.1f;
+
+        // Используем звуки материала если доступны
+        if (_currentMaterial != null)
+        {
+            AudioClip materialClip = _currentMaterial.GetRandomFootstepClip();
+            if (materialClip != null)
+            {
+                clipToPlay = materialClip;
+                pitchMin = _currentMaterial.footstepPitchMin;
+                pitchMax = _currentMaterial.footstepPitchMax;
+            }
+        }
+
+        if (clipToPlay == null)
+            return;
+
+        _audioSource.pitch = Random.Range(pitchMin, pitchMax);
+        float volume = AudioManager.Instance != null ? AudioManager.Instance.GetSFXVolume() : 1f;
+        
+        // Применяем множитель громкости материала
+        if (_currentMaterial != null)
+        {
+            volume *= _currentMaterial.volumeMultiplier;
+        }
+        
+        _audioSource.volume = volume;
+        _audioSource.PlayOneShot(clipToPlay);
     }
 
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
+        AudioClip clipToPlay = jumpClip;
+
+        // Используем звук прыжка материала если доступен
+        if (_currentMaterial != null && _currentMaterial.jumpClip != null)
+        {
+            clipToPlay = _currentMaterial.jumpClip;
+        }
+
+        if (clipToPlay == null)
+            return;
+
         _audioSource.pitch = 1f;
-        _audioSource.volume = AudioManager.Instance != null ? AudioManager.Instance.GetSFXVolume() : 1f;
-        _audioSource.PlayOneShot(jumpClip);
+        float volume = AudioManager.Instance != null ? AudioManager.Instance.GetSFXVolume() : 1f;
+        
+        // Применяем множитель громкости материала
+        if (_currentMaterial != null)
+        {
+            volume *= _currentMaterial.volumeMultiplier;
+        }
+        
+        _audioSource.volume = volume;
+        _audioSource.PlayOneShot(clipToPlay);
+    }
+
+    /// <summary>
+    /// Устанавливает текущий материал поверхности
+    /// </summary>
+    public void SetCurrentMaterial(SurfaceMaterial material)
+    {
+        _currentMaterial = material;
     }
 }
