@@ -65,7 +65,7 @@ public class MainMenuController : MonoBehaviour
         var savesContainer = loadMenu.Q<VisualElement>("saves-container");
         if (savesContainer != null)
         {
-            SaveMenuUIHelper.PopulateSaveList(savesContainer, false, null);
+            SaveMenuUIHelper.PopulateSaveList(savesContainer, false, null, null);
         }
 
         // Add Back Button

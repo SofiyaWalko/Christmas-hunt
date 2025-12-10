@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public static class SaveMenuUIHelper
 {
-    public static void PopulateSaveList(VisualElement container, bool isSaveMenu, Action onBack)
+    public static void PopulateSaveList(VisualElement container, bool isSaveMenu, Action onBack, Action onLoad)
     {
         container.Clear();
 
@@ -22,12 +22,12 @@ public static class SaveMenuUIHelper
             var saveData = SaveManager.Instance.GetSaveData(filename);
             if (saveData == null) continue;
 
-            var slot = CreateSaveSlot(filename, saveData, () => PopulateSaveList(container, isSaveMenu, onBack));
+            var slot = CreateSaveSlot(filename, saveData, () => PopulateSaveList(container, isSaveMenu, onBack, onLoad), onLoad);
             container.Add(slot);
         }
     }
 
-    private static VisualElement CreateSaveSlot(string filename, SaveData data, Action onRefresh)
+    private static VisualElement CreateSaveSlot(string filename, SaveData data, Action onRefresh, Action onLoad)
     {
         var container = new VisualElement();
         container.style.flexDirection = FlexDirection.Row;
@@ -53,6 +53,7 @@ public static class SaveMenuUIHelper
 
         var loadBtn = new Button(() => {
             SaveManager.Instance.LoadGame(filename);
+            onLoad?.Invoke();
         });
         loadBtn.text = "Загрузить";
         loadBtn.style.marginRight = 5;
