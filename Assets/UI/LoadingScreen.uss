@@ -28,6 +28,7 @@
     background-color: rgb(76, 175, 80); /* Зеленый цвет */
     border-radius: 10px;
     margin: 0;
+    border-width: 0;
 }
 
 /* Текст процентов внутри бара (если есть) */
