@@ -71,11 +71,12 @@ public class PauseMenuController : MonoBehaviour
         if (_pauseMenuContainer != null) _pauseMenuContainer.style.display = DisplayStyle.None;
 
         VisualElement subMenu = template.CloneTree();
+        // mark as overlay so USS can fully cover underlying UI/game
+        subMenu.AddToClassList("load-menu");
         subMenu.style.flexGrow = 1;
         subMenu.StretchToParentSize();
-        // Ensure background is opaque so we don't see game behind clearly if desired, 
-        // but usually UXML handles style. We just add it to root.
-        subMenu.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.8f)); 
+        // Ensure a darker background programmatically as fallback
+        subMenu.style.backgroundColor = new StyleColor(new Color(0.08f, 0.08f, 0.12f, 1f));
         _root.Add(subMenu);
 
         var savesContainer = subMenu.Q<VisualElement>("saves-container");

@@ -14,13 +14,13 @@
 }
 
 .interact-text {
-    background-color: rgba(15, 23, 42, 0.9);
-    color: #e2e8f0;
+    background-color: rgb(30, 30, 40);
+    color: white;
     padding: 12px 28px;
     border-radius: 30px;
     font-size: 18px;
     -unity-font-style: bold;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-    border: 2px solid #475569;
+    border: 2px solid rgb(60, 60, 70);
     white-space: nowrap;
 }

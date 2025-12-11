@@ -20,7 +20,15 @@ public class SaveLoadMenuController : MonoBehaviour
         }
 
         _root = uiDoc.rootVisualElement;
+        // mark this document root as overlay so USS will hide underlying UI/game
+        _root.AddToClassList("load-menu");
         _savesContainer = _root.Q<VisualElement>("saves-container");
+        // If UXML provides an inner wrapper, prefer that for adding slots
+        if (_savesContainer != null)
+        {
+            var inner = _savesContainer.Q<VisualElement>(className: "saves-inner");
+            if (inner != null) _savesContainer = inner;
+        }
 
         if (isSaveMenu)
         {
@@ -57,48 +65,45 @@ public class SaveLoadMenuController : MonoBehaviour
         saves.Sort(); 
         saves.Reverse(); 
 
+        // prefer inner container if present
+        var inner = _savesContainer.Q<VisualElement>(className: "saves-inner");
+        VisualElement target = inner ?? _savesContainer;
+
         foreach (var filename in saves)
         {
             var saveData = SaveManager.Instance.GetSaveData(filename);
             if (saveData == null) continue;
 
             var slot = CreateSaveSlot(filename, saveData);
-            _savesContainer.Add(slot);
+            target.Add(slot);
         }
     }
 
     private VisualElement CreateSaveSlot(string filename, SaveData data)
     {
         var container = new VisualElement();
-        container.style.flexDirection = FlexDirection.Row;
-        container.style.justifyContent = Justify.SpaceBetween;
-        container.style.alignItems = Align.Center;
-        container.style.paddingBottom = 10;
-        container.style.paddingTop = 10;
-        container.style.paddingLeft = 10;
-        container.style.paddingRight = 10;
-        container.style.borderBottomWidth = 1;
-        container.style.borderBottomColor = Color.white;
-        container.style.height = 60;
+        container.AddToClassList("save-slot");
 
         var infoContainer = new VisualElement();
+        infoContainer.AddToClassList("save-info");
         // "Сохранение <дата>"
         var nameLabel = new Label($"Сохранение {data.timestamp}");
-        nameLabel.style.fontSize = 16;
-        nameLabel.style.color = Color.white;
+        nameLabel.AddToClassList("save-name");
         infoContainer.Add(nameLabel);
         container.Add(infoContainer);
 
         var buttonsContainer = new VisualElement();
-        buttonsContainer.style.flexDirection = FlexDirection.Row;
+        buttonsContainer.AddToClassList("save-buttons");
 
         var loadBtn = new Button(() => OnLoadClicked(filename));
         loadBtn.text = "Загрузить";
-        loadBtn.style.marginRight = 5;
+        loadBtn.AddToClassList("save-button");
         buttonsContainer.Add(loadBtn);
 
         var delBtn = new Button(() => OnDeleteClicked(filename));
         delBtn.text = "Удалить";
+        delBtn.AddToClassList("save-button");
+        delBtn.AddToClassList("save-delete-button");
         buttonsContainer.Add(delBtn);
 
         container.Add(buttonsContainer);
