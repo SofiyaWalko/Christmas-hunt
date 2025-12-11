@@ -5,16 +5,27 @@
     flex-grow: 1;
     justify-content: center;
     align-items: center;
-    background-color: rgb(40, 44, 52); /* Темный фон */
+    background-color: rgb(20, 20, 30);
 }
 
-/* Контейнер для кнопок (если вы обернете их в VisualElement с классом .menu-container) */
-.menu-container {
-    width: 350px;
+/* Стиль для меню загрузки */
+.load-menu {
+    background-color: rgb(20, 20, 30);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+/* Контейнер для кнопок */
+#menu-container {
+    width: 100%;
     padding: 30px;
-    background-color: rgba(0, 0, 0, 0.6);
-    border-radius: 15px;
+    background-color: rgb(40, 40, 50);
     align-items: stretch;
+    border: 2px solid rgb(60, 60, 70);
 }
 
 /* Общий стиль кнопок */
@@ -23,29 +34,29 @@ Button {
     margin-bottom: 15px;
     font-size: 24px;
     -unity-font-style: bold;
-    color: rgb(230, 230, 230);
-    background-color: rgb(60, 63, 65);
+    color: white;
+    background-color: rgb(28, 40, 68); /* dark blue base */
     border-width: 2px;
-    border-color: rgb(85, 85, 85);
+    border-color: rgb(59, 130, 246); /* bright blue accent */
     border-radius: 10px;
     transition-duration: 0.2s;
 }
 
 /* Эффект наведения */
 Button:hover {
-    background-color: rgb(80, 83, 85);
+    background-color: rgb(59, 130, 246); /* blue on hover */
     scale: 1.05;
-    border-color: rgb(120, 120, 120);
+    border-color: rgb(99, 179, 255);
 }
 
 /* Эффект нажатия */
 Button:active {
-    background-color: rgb(40, 43, 45);
+    background-color: rgb(50, 50, 60);
     scale: 0.95;
-    color: rgb(180, 180, 180);
+    color: rgb(200, 200, 210);
 }
 
-/* Особый стиль для кнопки выхода */
+/* Особый стиль для кнопки выхода (оставляем красной) */
 #quit-button {
     margin-top: 20px;
     background-color: rgb(140, 50, 50);
@@ -58,7 +69,88 @@ Button:active {
 
 /* Фон для контейнера */
 #container {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(30, 30, 40);
     border-radius: 10px;
     padding: 20px;
+}
+
+/* Стили для меню сохранений */
+/* Контейнер для списка сохранений (центруем список, задаём максимальную ширину) */
+#saves-container, .saves-container {
+    flex-direction: column;
+    align-items: center; /* center inner list */
+    justify-content: flex-start;
+    padding: 12px;
+}
+
+/* Внутренний контейнер списка (ограничивает ширину списка и центрирует его) */
+.saves-inner {
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Слот сохранения — адаптивный, заполняет ширину внутреннего контейнера */
+.save-slot {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(60, 60, 70);
+    background-color: rgb(25, 24, 40); /* subtle purple-leaning background */
+    border-radius: 10px;
+    margin: 0;
+    border: 1px solid rgb(50, 50, 60);
+    height: auto;
+}
+
+/* Контейнер информации о сохранении */
+.save-info {
+    flex-direction: column;
+}
+
+/* Название сохранения */
+.save-name {
+    font-size: 16px;
+    color: rgb(251, 191, 36); /* yellow accent */
+    -unity-font-style: bold;
+}
+
+/* Контейнер кнопок */
+.save-buttons {
+    flex-direction: row;
+}
+
+/* Кнопки загрузки и удаления */
+.save-button {
+    height: 34px;
+    font-size: 14px;
+    color: white;
+    background-color: rgb(59, 130, 246); /* blue */
+    border-width: 2px;
+    border-color: rgb(99, 179, 255);
+    border-radius: 8px;
+    -unity-font-style: bold;
+    transition-duration: 0.15s;
+    margin-left: 8px;
+    padding: 6px 10px;
+}
+
+.save-button:hover {
+    background-color: rgb(139, 92, 246); /* purple on hover */
+    border-color: rgb(170, 140, 255);
+}
+
+/* Кнопка удаления - красная */
+.save-delete-button {
+    background-color: rgb(140, 50, 50);
+    border-color: rgb(160, 70, 70);
+}
+
+.save-delete-button:hover {
+    background-color: rgb(170, 60, 60);
 }

@@ -1,3 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="saves-container" style="flex-grow: 1;" />
+    <ui:VisualElement name="saves-container" class="saves-container" style="flex-grow: 1; align-self: stretch; align-items: auto; justify-content: flex-start;">
+        <ui:VisualElement class="saves-inner" />
+    </ui:VisualElement>
 </ui:UXML>

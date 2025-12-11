@@ -19,24 +19,25 @@
 .modal-window {
   width: 520px;
   max-width: 90%;
-  background-color: rgb(255, 255, 255);
-  border-radius: 12px;
+  background-color: rgb(25, 25, 35);
+  border-radius: 15px;
   padding: 18px 20px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
   gap: 12px;
+  border: 2px solid rgb(50, 50, 60);
 }
 
 .modal-title {
   font-size: 20px;
   font-weight: 700;
-  color: rgb(20, 24, 28);
+  color: white;
 }
 
 .modal-message {
   font-size: 16px;
-  color: rgb(40, 44, 48);
+  color: rgb(200, 200, 210);
   white-space: pre-wrap;
 }
 
@@ -50,12 +51,24 @@
   background-color: rgb(70,130,180);
   color: white;
   padding: 8px 14px;
-  border-radius: 6px;
-  border: none;
+  border-radius: 10px;
+  border: 2px solid rgb(100, 160, 210);
   font-size: 14px;
+  -unity-font-style: bold;
+  transition-duration: 0.2s;
+}
+
+.modal-button:hover {
+  background-color: rgb(90,150,200);
+  border-color: rgb(120, 180, 230);
 }
 
 .modal-button.secondary {
-  background-color: rgb(200, 200, 200);
+  background-color: rgb(180, 180, 180);
   color: rgb(20,20,20);
+  border-color: rgb(200, 200, 200);
+}
+
+.modal-button.secondary:hover {
+  background-color: rgb(200, 200, 200);
 }
