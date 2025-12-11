@@ -57,6 +57,7 @@ public class MainMenuController : MonoBehaviour
 
         // Instantiate Load Menu
         VisualElement loadMenu = loadGameMenuTemplate.CloneTree();
+        loadMenu.AddToClassList("load-menu");
         loadMenu.style.flexGrow = 1;
         loadMenu.StretchToParentSize();
         _root.Add(loadMenu);
