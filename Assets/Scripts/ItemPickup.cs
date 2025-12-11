@@ -49,7 +49,7 @@ public class ItemPickup : PickupBase, IInteractable
         InventoryUIController.Instance.ShowVictoryNotification(
             "Ура вы прошли первый уровень!",
             "Победа!",
-            "Location_1"
+            "Location_2"
         );
         Destroy(gameObject);
     }
