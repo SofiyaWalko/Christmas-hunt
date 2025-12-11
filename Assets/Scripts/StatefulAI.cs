@@ -386,7 +386,7 @@ public class StatefulAI : MonoBehaviour, IInteractable
     public string GetInteractText()
     {
         // Показываем подсказку
-        return (currentState == AIState.Alert && IsPlayerInRange(interactionDistance))
+        return (currentState == AIState.Alert && IsPlayerInRange(interactionDistance) && npcType == NPCType.Friendly)
             ? "Поговорить"
             : string.Empty;
     }

@@ -22,6 +22,7 @@
     background-color: rgb(76, 175, 80);
     border-radius: 10px;
     margin: 0;
+    border-width: 0;
 }
 
 #loading-bar .unity-label {

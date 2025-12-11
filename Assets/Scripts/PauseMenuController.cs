@@ -11,7 +11,18 @@ public class PauseMenuController : MonoBehaviour
 
     private VisualElement _root;
     private VisualElement _pauseMenuContainer;
+    private bool _isDead;
     private bool _isPaused;
+
+    private void OnEnable()
+    {
+        CharacterStats.OnDeath += ShowDeathMenu;
+    }
+
+    private void OnDisable()
+    {
+        CharacterStats.OnDeath -= ShowDeathMenu;
+    }
 
     void Start()
     {
@@ -46,8 +57,33 @@ public class PauseMenuController : MonoBehaviour
         if (quitButton != null)
             quitButton.clicked += QuitGame;
 
+        // Попытка найти кнопку рестарта, если она есть в UI (например, добавленная для экрана смерти)
+        var restartButton = _root.Q<Button>("restart-button");
+        if (restartButton != null)
+            restartButton.clicked += RestartGame;
+
         // Изначально меню скрыто
         _root.style.display = DisplayStyle.None;
+    }
+
+    private void ShowDeathMenu()
+    {
+        _isDead = true;
+        _root.style.display = DisplayStyle.Flex;
+        Time.timeScale = 0f;
+        _isPaused = true;
+
+        // Скрываем кнопку "Продолжить", так как персонаж мертв
+        var resumeButton = _root.Q<Button>("resume-button");
+        if (resumeButton != null) resumeButton.style.display = DisplayStyle.None;
+        
+        // Показываем кнопку рестарта, если она была скрыта
+        var restartButton = _root.Q<Button>("restart-button");
+        if (restartButton != null) restartButton.style.display = DisplayStyle.Flex;
+
+        // Можно также поменять заголовок меню, если есть такой элемент
+        var titleLabel = _root.Q<Label>("title"); // Предполагаемое имя
+        if (titleLabel != null) titleLabel.text = "YOU DIED";
     }
 
     private void OnOpenSaveGame()
@@ -90,7 +126,7 @@ public class PauseMenuController : MonoBehaviour
                 saveBtn.clicked += () => {
                     SaveManager.Instance.SaveGame();
                     if (savesContainer != null)
-                        SaveMenuUIHelper.PopulateSaveList(savesContainer, true, null);
+                        SaveMenuUIHelper.PopulateSaveList(savesContainer, true, null, null);
                 };
             }
             
@@ -100,14 +136,18 @@ public class PauseMenuController : MonoBehaviour
                 deleteBtn.clicked += () => {
                     SaveManager.Instance.DeleteAllSaves();
                     if (savesContainer != null)
-                        SaveMenuUIHelper.PopulateSaveList(savesContainer, true, null);
+                        SaveMenuUIHelper.PopulateSaveList(savesContainer, true, null, null);
                 };
             }
         }
 
         if (savesContainer != null)
         {
-            SaveMenuUIHelper.PopulateSaveList(savesContainer, isSaveMenu, null);
+            // Pass a lambda that forces the menu to close, ignoring death state
+            SaveMenuUIHelper.PopulateSaveList(savesContainer, isSaveMenu, null, () => {
+                _isDead = false; // Reset death flag as we are loading a save
+                ResumeGame();
+            });
         }
 
         // Back Button
@@ -124,6 +164,9 @@ public class PauseMenuController : MonoBehaviour
 
     void Update()
     {
+        // Если игрок мертв, не даем закрыть меню через Escape
+        if (_isDead) return;
+
         // ЗАМЕНА: Вместо Input.GetKeyDown(KeyCode.Escape) используем новую систему
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
@@ -139,13 +182,25 @@ public class PauseMenuController : MonoBehaviour
         _root.style.display = DisplayStyle.Flex;
         Time.timeScale = 0f;
         _isPaused = true;
+        
+        // Убеждаемся, что кнопка продолжить видна при обычной паузе
+        var resumeButton = _root.Q<Button>("resume-button");
+        if (resumeButton != null) resumeButton.style.display = DisplayStyle.Flex;
     }
 
     private void ResumeGame()
     {
+        if (_isDead) return; // На всякий случай
+
         _root.style.display = DisplayStyle.None;
         Time.timeScale = 1f;
         _isPaused = false;
+    }
+
+    private void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void LoadMainMenu()
