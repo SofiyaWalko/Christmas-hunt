@@ -4,10 +4,10 @@
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(20, 20, 30, 0.95);
+    background-color: rgb(25, 25, 35);
     padding: 25px;
     border-radius: 20px;
-    border: 3px solid #4a5568;
+    border: 2px solid rgb(50, 50, 60);
     flex-direction: column;
     align-items: center;
     width: 850px;
@@ -18,14 +18,14 @@
 
 .ink-character-name {
     font-size: 26px;
-    color: #fbbf24;
+    color: rgb(251, 191, 36);
     -unity-font-style: bold;
     margin-bottom: 15px;
 }
 
 .ink-sentence-text {
     font-size: 20px;
-    color: #e2e8f0;
+    color: white;
     text-align: center;
     margin-bottom: 20px;
     line-height: 1.4;
@@ -39,30 +39,35 @@
 }
 
 .ink-choice-button {
-    background-color: #4299e1;
+    background-color: rgb(66, 153, 225);
     color: white;
     font-size: 16px;
     padding: 12px 24px;
     border-radius: 12px;
     -unity-font-style: bold;
-    border: none;
+    border: 2px solid rgb(100, 180, 255);
     text-align: center;
     width: 300px;
+    transition-duration: 0.2s;
 }
 
 .ink-choice-button:hover {
-    background-color: #3182ce;
+    background-color: rgb(49, 130, 206);
+    border-color: rgb(120, 200, 255);
 }
 
 .ink-continue-button {
-    background-color: #48bb78;
+    background-color: rgb(114, 51, 255);
     color: white;
     font-size: 18px;
     padding: 12px 30px;
     border-radius: 12px;
     -unity-font-style: bold;
+    border: 2px solid rgb(160, 120, 255);
+    transition-duration: 0.2s;
 }
 
 .ink-continue-button:hover {
-    background-color: #38a169;
+    background-color: rgb(92, 36, 204);
+    border-color: rgb(180, 150, 255);
 }
