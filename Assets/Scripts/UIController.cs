@@ -140,7 +140,7 @@ public class InventoryUIController : MonoBehaviour
         {
             notificationNextLevel.style.display = DisplayStyle.Flex;
             notificationNextLevel.clicked += () => {
-                SaveManager.Instance.SaveGame(); // Auto-save before transition
+                // SaveManager.Instance.SaveGame(); // Auto-save moved to SaveManager OnSceneLoaded
                 SceneManager.LoadScene(nextSceneName);
                 HideNotification();
             };

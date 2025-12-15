@@ -8,6 +8,7 @@ public class PauseMenuController : MonoBehaviour
     [Header("Templates")]
     public VisualTreeAsset saveGameMenuTemplate;
     public VisualTreeAsset loadGameMenuTemplate;
+    public VisualTreeAsset settingsMenuTemplate;
 
     private VisualElement _root;
     private VisualElement _pauseMenuContainer;
@@ -49,6 +50,10 @@ public class PauseMenuController : MonoBehaviour
         if (saveButton != null)
             saveButton.clicked += OnOpenSaveGame;
 
+        var settingsButton = _root.Q<Button>("settings-button");
+        if (settingsButton != null)
+            settingsButton.clicked += OnOpenSettings;
+
         var mainMenuButton = _root.Q<Button>("main-menu-button");
         if (mainMenuButton != null)
             mainMenuButton.clicked += LoadMainMenu;
@@ -76,6 +81,14 @@ public class PauseMenuController : MonoBehaviour
         // Скрываем кнопку "Продолжить", так как персонаж мертв
         var resumeButton = _root.Q<Button>("resume-button");
         if (resumeButton != null) resumeButton.style.display = DisplayStyle.None;
+
+        // Скрываем кнопку "Сохранить игру"
+        var saveButton = _root.Q<Button>("save-button");
+        if (saveButton != null) saveButton.style.display = DisplayStyle.None;
+
+        // Показываем надпись "ВЫ ПОГИБЛИ"
+        var deathLabel = _root.Q<Label>("death-label");
+        if (deathLabel != null) deathLabel.style.display = DisplayStyle.Flex;
         
         // Показываем кнопку рестарта, если она была скрыта
         var restartButton = _root.Q<Button>("restart-button");
@@ -94,6 +107,78 @@ public class PauseMenuController : MonoBehaviour
     private void OnOpenLoadGame()
     {
         OpenSubMenu(loadGameMenuTemplate, false);
+    }
+
+    private void OnOpenSettings()
+    {
+        if (settingsMenuTemplate == null)
+        {
+            Debug.LogError("SettingsMenuTemplate is not assigned in Inspector!");
+            return;
+        }
+
+        if (_pauseMenuContainer != null) _pauseMenuContainer.style.display = DisplayStyle.None;
+
+        VisualElement settingsMenu = settingsMenuTemplate.CloneTree();
+        settingsMenu.AddToClassList("load-menu"); // Reuse style
+        settingsMenu.style.flexGrow = 1;
+        settingsMenu.StretchToParentSize();
+        settingsMenu.style.backgroundColor = new StyleColor(new Color(0.08f, 0.08f, 0.12f, 1f));
+        _root.Add(settingsMenu);
+
+        // Setup Settings Logic
+        var musicSlider = settingsMenu.Q<Slider>("music-volume-slider");
+        var sfxSlider = settingsMenu.Q<Slider>("sfx-volume-slider");
+        var qualityDropdown = settingsMenu.Q<DropdownField>("quality-dropdown");
+        var backButton = settingsMenu.Q<Button>("back-button");
+
+        if (qualityDropdown != null)
+            qualityDropdown.choices = new System.Collections.Generic.List<string> { "Низкое", "Среднее", "Высокое" };
+
+        // Load values
+        if (musicSlider != null)
+        {
+            float val = PlayerPrefs.GetFloat("MusicVolume", 0.7f);
+            musicSlider.value = val * 100;
+            musicSlider.RegisterValueChangedCallback(evt => {
+                float v = Mathf.Clamp01(evt.newValue / 100f);
+                PlayerPrefs.SetFloat("MusicVolume", v);
+                if (AudioManager.Instance != null) AudioManager.Instance.SetMusicVolume(v);
+                PlayerPrefs.Save();
+            });
+        }
+
+        if (sfxSlider != null)
+        {
+            float val = PlayerPrefs.GetFloat("SFXVolume", 0.7f);
+            sfxSlider.value = val * 100;
+            sfxSlider.RegisterValueChangedCallback(evt => {
+                float v = Mathf.Clamp01(evt.newValue / 100f);
+                PlayerPrefs.SetFloat("SFXVolume", v);
+                if (AudioManager.Instance != null) AudioManager.Instance.SetSFXVolume(v);
+                PlayerPrefs.Save();
+            });
+        }
+
+        if (qualityDropdown != null)
+        {
+            int q = PlayerPrefs.GetInt("quality", 1);
+            qualityDropdown.index = q;
+            qualityDropdown.RegisterValueChangedCallback(evt => {
+                int index = qualityDropdown.index;
+                PlayerPrefs.SetInt("quality", index);
+                QualitySettings.SetQualityLevel(index);
+                PlayerPrefs.Save();
+            });
+        }
+
+        if (backButton != null)
+        {
+            backButton.clicked += () => {
+                _root.Remove(settingsMenu);
+                if (_pauseMenuContainer != null) _pauseMenuContainer.style.display = DisplayStyle.Flex;
+            };
+        }
     }
 
     private void OpenSubMenu(VisualTreeAsset template, bool isSaveMenu)
@@ -146,6 +231,7 @@ public class PauseMenuController : MonoBehaviour
             // Pass a lambda that forces the menu to close, ignoring death state
             SaveMenuUIHelper.PopulateSaveList(savesContainer, isSaveMenu, null, () => {
                 _isDead = false; // Reset death flag as we are loading a save
+                ResetMenuState();
                 ResumeGame();
             });
         }
@@ -195,6 +281,35 @@ public class PauseMenuController : MonoBehaviour
         _root.style.display = DisplayStyle.None;
         Time.timeScale = 1f;
         _isPaused = false;
+    }
+
+    private void ResetMenuState()
+    {
+        // Remove any open submenus (load/save/settings)
+        var subMenus = _root.Query<VisualElement>(className: "load-menu").ToList();
+        foreach (var menu in subMenus)
+        {
+            menu.RemoveFromHierarchy();
+        }
+
+        // Reset main container visibility
+        if (_pauseMenuContainer != null) _pauseMenuContainer.style.display = DisplayStyle.Flex;
+
+        // Reset buttons and labels to default pause state
+        var resumeButton = _root.Q<Button>("resume-button");
+        if (resumeButton != null) resumeButton.style.display = DisplayStyle.Flex;
+
+        var saveButton = _root.Q<Button>("save-button");
+        if (saveButton != null) saveButton.style.display = DisplayStyle.Flex;
+
+        var deathLabel = _root.Q<Label>("death-label");
+        if (deathLabel != null) deathLabel.style.display = DisplayStyle.None;
+
+        var restartButton = _root.Q<Button>("restart-button");
+        if (restartButton != null) restartButton.style.display = DisplayStyle.None;
+        
+        var titleLabel = _root.Q<Label>("title");
+        if (titleLabel != null) titleLabel.text = "PAUSE";
     }
 
     private void RestartGame()

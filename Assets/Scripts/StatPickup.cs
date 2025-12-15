@@ -29,8 +29,8 @@ public class StatPickup : PickupBase, IInteractable
             if (InventoryUIController.Instance != null)
             {
                 InventoryUIController.Instance.ShowNotification(
-                    "Вы подобрали стат!",
-                    "Стат Получен",
+                    "Вы подобрали стат \"Димпломатия\"",
+                    "Стат \"Дипломатия\" получен",
                     2f
                 );
             }
