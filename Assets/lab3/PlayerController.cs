@@ -37,6 +37,13 @@ public class PlayerController : MonoBehaviour
     private bool sprintButtonHeld;
     private bool canDoubleJump;
 
+    [Header("Surface Movement")]
+    public float defaultInertia = 999f; // обычная земля
+
+    private float currentInertia;
+    private Vector3 currentHorizontalVelocity;
+
+
     [SerializeField]
     private bool doubleJumpUnlocked = false;
 
@@ -72,6 +79,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         cameraTransform = Camera.main.transform;
         stats = GetComponent<CharacterStats>();
+        currentInertia = defaultInertia;
+
     }
 
     private void Start()
@@ -138,24 +147,45 @@ public class PlayerController : MonoBehaviour
 
     private void HandleHorizontalMovement()
     {
-        Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
+        Vector3 inputDirection = new Vector3(moveInput.x, 0f, moveInput.y);
+        float targetSpeed = isSprinting ? sprintSpeed : moveSpeed;
 
-        if (moveDirection.magnitude >= 0.1f)
+        Vector3 targetVelocity = Vector3.zero;
+
+        if (inputDirection.magnitude >= 0.1f)
         {
             Vector3 relativeMoveDirection =
-                Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0) * moveDirection;
-            Quaternion targetRotation = Quaternion.LookRotation(relativeMoveDirection.normalized);
+                Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0) * inputDirection.normalized;
+
+            Quaternion targetRotation = Quaternion.LookRotation(relativeMoveDirection);
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRotation,
                 rotationSpeed * Time.deltaTime
             );
 
-            // Двигаем персонажа по горизонтали
-            float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
-            controller.Move(relativeMoveDirection.normalized * currentSpeed * Time.deltaTime);
+            targetVelocity = relativeMoveDirection * targetSpeed;
         }
+
+        if (currentInertia >= 999f)
+        {
+            // ОБЫЧНАЯ ЗЕМЛЯ — без скольжения
+            currentHorizontalVelocity = targetVelocity;
+        }
+        else
+        {
+            // ЛЁД — с инерцией
+            currentHorizontalVelocity = Vector3.Lerp(
+                currentHorizontalVelocity,
+                targetVelocity,
+                currentInertia * Time.deltaTime
+            );
+        }
+
+        controller.Move(currentHorizontalVelocity * Time.deltaTime);
     }
+
+
 
     private void GroundCheck()
     {
@@ -179,6 +209,15 @@ public class PlayerController : MonoBehaviour
             if (slopeAngle <= maxSlopeAngle)
             {
                 isGrounded = true;
+                IceSurface ice = hit.collider.GetComponent<IceSurface>();
+                if (ice != null)
+                {
+                    currentInertia = ice.inertia;
+                }
+                else
+                {
+                    currentInertia = 999f;
+                }
                 if (doubleJumpUnlocked)
                 {
                     canDoubleJump = true;
@@ -189,6 +228,7 @@ public class PlayerController : MonoBehaviour
 
         // Если луч ничего не нашел или угол слишком крутой, мы в воздухе.
         isGrounded = false;
+        currentInertia = defaultInertia;
     }
 
     private void HandleGravity()
