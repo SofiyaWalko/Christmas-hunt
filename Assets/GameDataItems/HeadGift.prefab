@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799c1da5b86bead49a93b5de4cd8d786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  id: 4330542a-1afb-439e-bb05-c4aaf218466d
+  id: 50b847e8-10a1-43b8-90d7-9cac0631ee41
   itemData: {fileID: 11400000, guid: 751d2e304d5302133966eb0099669c63, type: 2}
 --- !u!65 &3848955432374445896
 BoxCollider:

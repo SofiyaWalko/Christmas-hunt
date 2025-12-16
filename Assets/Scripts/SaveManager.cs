@@ -67,6 +67,25 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Location_2")
+        {
+            Debug.Log("Auto-saving on entering Location_2...");
+            SaveGame();
+        }
+    }
+
     public void SaveGame()
     {
         SaveData data = new SaveData();
@@ -176,7 +195,7 @@ public class SaveManager : MonoBehaviour
         Debug.Log("Game Saved to: " + path);
     }
 
-    public void LoadGame(string saveFileName)
+    public void LoadGame(string saveFileName, System.Action onComplete = null)
     {
         string path = Path.Combine(Application.persistentDataPath, saveFileName);
         if (!File.Exists(path))
@@ -188,10 +207,10 @@ public class SaveManager : MonoBehaviour
         string json = File.ReadAllText(path);
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-        StartCoroutine(LoadGameRoutine(data));
+        StartCoroutine(LoadGameRoutine(data, onComplete));
     }
 
-    private IEnumerator LoadGameRoutine(SaveData data)
+    private IEnumerator LoadGameRoutine(SaveData data, System.Action onComplete)
     {
         // Restore collected items IMMEDIATELY
         _collectedItemsSession = new List<string>(data.collectedItems);
@@ -207,7 +226,8 @@ public class SaveManager : MonoBehaviour
         }
 
         // 1. Load Scene
-        if (SceneManager.GetActiveScene().name != data.sceneName)
+        // Always reload scene to ensure clean state (UI, Physics, etc.)
+        // if (SceneManager.GetActiveScene().name != data.sceneName)
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(data.sceneName);
             while (!asyncLoad.isDone)
@@ -331,6 +351,7 @@ public class SaveManager : MonoBehaviour
         }
 
         Debug.Log("Game Loaded!");
+        onComplete?.Invoke();
     }
 
     public void MarkAsCollected(string id)

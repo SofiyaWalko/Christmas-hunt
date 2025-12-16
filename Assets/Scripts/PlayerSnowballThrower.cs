@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Скрипт для стрельбы снежками игроком.
@@ -76,6 +77,12 @@ public class PlayerSnowballThrower : MonoBehaviour
     /// </summary>
     private void TryShootSnowball()
     {
+        // Проверяем, что игрок находится на локации 2
+        if (SceneManager.GetActiveScene().name != "Location_2")
+        {
+            return;
+        }
+
         // Проверяем, что курсор не находится над UI Toolkit элементом
         if (IsPointerOverUIToolkit())
         {
