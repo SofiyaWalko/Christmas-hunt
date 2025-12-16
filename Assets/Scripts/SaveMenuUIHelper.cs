@@ -61,10 +61,8 @@ public static class SaveMenuUIHelper
         var buttonsContainer = new VisualElement();
         buttonsContainer.AddToClassList("save-buttons");
 
-        var loadBtn = new Button(() =>
-        {
-            SaveManager.Instance.LoadGame(filename);
-            onLoad?.Invoke();
+        var loadBtn = new Button(() => {
+            SaveManager.Instance.LoadGame(filename, onLoad);
         });
         loadBtn.text = "Загрузить";
         loadBtn.AddToClassList("save-button");

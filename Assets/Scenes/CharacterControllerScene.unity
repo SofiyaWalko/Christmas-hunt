@@ -909,6 +909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenuController
   saveGameMenuTemplate: {fileID: 9197481963319205126, guid: 3a1a4e3c059a493dca37d93956f1447b, type: 3}
   loadGameMenuTemplate: {fileID: 9197481963319205126, guid: 927608ece18d9987287feea410d0928d, type: 3}
+  settingsMenuTemplate: {fileID: 0}
 --- !u!4 &260815909
 Transform:
   m_ObjectHideFlags: 0
