@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/LoadingScreen.uss?fileID=7433441132597879392&amp;guid=a816cba7eb9cba1578c3c5e6b8709cef&amp;type=3" />
-    <ui:VisualElement name="container" style="flex-grow: 1; align-items: center; align-self: auto; justify-content: space-around;">
-        <ui:ProgressBar value="22" title="my-progress" name="loading-bar" />
+    <Style src="project://database/Assets/UI/LoadingScreen.uss?fileID=7433441132597879392&amp;guid=a816cba7eb9cba1578c3c5e6b8709cef&amp;type=3#LoadingScreen" />
+    <ui:VisualElement name="container" style="flex-grow: 1; align-items: center; justify-content: space-around;">
+        <ui:ProgressBar value="0" title="Загрузка..." name="loading-bar" />
         <ui:Label text="Label" name="progress-text" style="display: none;" />
     </ui:VisualElement>
 </ui:UXML>

@@ -30,6 +30,7 @@
 
 /* Общий стиль кнопок */
 Button {
+    width: 535px;
     height: 60px;
     margin-bottom: 15px;
     font-size: 24px;
@@ -38,7 +39,7 @@ Button {
     background-color: rgb(28, 40, 68); /* dark blue base */
     border-width: 2px;
     border-color: rgb(59, 130, 246); /* bright blue accent */
-    border-radius: 10px;
+    border-radius: 25px;
     transition-duration: 0.2s;
 }
 
