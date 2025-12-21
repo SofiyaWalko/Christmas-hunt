@@ -87,6 +87,7 @@ public class MainMenuController : MonoBehaviour
         if (SaveManager.Instance != null)
         {
             SaveManager.Instance.ClearSessionData();
+            SaveManager.Instance.isLoadingFromSave = false;
         }
         SceneManager.LoadScene("LoadingScreen");
     }

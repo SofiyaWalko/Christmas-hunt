@@ -5,17 +5,21 @@ using UnityEngine.UIElements;
 
 public class LoadingScreenController : MonoBehaviour
 {
-    // Укажите в инспекторе индекс сцены, которую нужно загрузить (например, 2)
-    public int sceneToLoadIndex = 1;
+    [Header("Scene Settings")]
+    [Tooltip("Индекс сцены для загрузки (File -> Build Settings).")]
+    public int sceneToLoadIndex = 2;
 
+    // Ссылка на корневой элемент UI
+    private VisualElement _rootElement;
     private ProgressBar _bar;
     private Label _label;
 
     void Start()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        _bar = root.Q<ProgressBar>("loading-bar");
-        _label = root.Q<Label>("progress-text");
+        var uiDoc = GetComponent<UIDocument>();
+        _rootElement = uiDoc.rootVisualElement;
+        _bar = _rootElement.Q<ProgressBar>("loading-bar");
+        _label = _rootElement.Q<Label>("progress-text");
 
         // Устанавливаем диапазон прогресс бара от 0 до 1
         _bar.lowValue = 0f;
@@ -27,6 +31,10 @@ public class LoadingScreenController : MonoBehaviour
 
     IEnumerator LoadSceneAsync()
     {
+        // Начинаем загрузку сцены в фоне
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToLoadIndex);
+        operation.allowSceneActivation = false;
+
         // Анимация загрузки в течение 1 секунды
         float animationDuration = 1f;
         float elapsedTime = 0f;
@@ -46,15 +54,16 @@ public class LoadingScreenController : MonoBehaviour
         _bar.value = 1f;
         _label.text = "100%";
         
-        // Небольшая задержка перед загрузкой сцены
-        yield return new WaitForSeconds(0.2f);
+        // Небольшая задержка перед переходом
+        yield return new WaitForSeconds(0.5f);
 
-        // Теперь загружаем сцену
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToLoadIndex);
-
-        while (!operation.isDone)
+        // Ждем, пока сцена загрузится (до 90%)
+        while (operation.progress < 0.9f)
         {
-            yield return null; // Ждем следующего кадра
+            yield return null;
         }
+
+        // Разрешаем активацию сцены
+        operation.allowSceneActivation = true;
     }
 }
