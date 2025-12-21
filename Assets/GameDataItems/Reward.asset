@@ -17,4 +17,4 @@ MonoBehaviour:
     \u043F\u043E\u0442\u0435\u0440\u044F\u043B \u0421\u0430\u043D\u0442\u0430"
   icon: {fileID: 21300000, guid: 0784ac173e2e34103b57c2db79d4f435, type: 3}
   isStackable: 1
-  maxStackSize: 100
+  maxStackSize: 105

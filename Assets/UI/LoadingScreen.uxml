@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/LoadingScreen.uss?fileID=7433441132597879392&amp;guid=a816cba7eb9cba1578c3c5e6b8709cef&amp;type=3#LoadingScreen" />
-    <ui:VisualElement name="container" style="flex-grow: 1; align-items: center; justify-content: space-around;">
+    <ui:VisualElement name="container" style="flex-grow: 1; align-items: center; justify-content: space-around; background-image: url(&quot;project://database/Assets/fone_mainMenu.jpg?fileID=2800000&amp;guid=fc85e7e6d6c619903b2dd3411dba8cff&amp;type=3#fone_mainMenu&quot;);">
         <ui:ProgressBar value="0" title="Загрузка..." name="loading-bar" />
         <ui:Label text="Label" name="progress-text" style="display: none;" />
     </ui:VisualElement>

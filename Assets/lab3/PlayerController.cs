@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     private bool isSprinting;
     private bool sprintButtonHeld;
     private bool canDoubleJump;
+    private bool suppressFallingReentry = false;
+    private bool prevIsGrounded = false;
+    private float lastLeftGroundTime = 0f;
+    private float minAirTimeForLanding = 0.05f;
 
     [Header("Surface Movement")]
     public float defaultInertia = 999f; // обычная земля
@@ -141,6 +145,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Double Jump!");
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             animator.SetTrigger("Jump"); // Or a different trigger if you have one
+            suppressFallingReentry = true;
             canDoubleJump = false;
         }
     }
@@ -222,11 +227,33 @@ public class PlayerController : MonoBehaviour
                 {
                     canDoubleJump = true;
                 }
+                // arrived on ground
+                // if we just landed after suppression, clear suppression
+                if (suppressFallingReentry)
+                {
+                    suppressFallingReentry = false;
+                }
+                // If animator is currently in the jump/apex state, force Locomotion to avoid
+                // playing apex animation on landing. This is a defensive fix until Animator
+                // transitions are adjusted in the Controller.
+                if (animator != null)
+                {
+                    var st = animator.GetCurrentAnimatorStateInfo(0);
+                    if (st.IsName("jumping_com"))
+                    {
+                        Debug.Log("[Animator Debug] Landing detected while in jumping_com; forcing Locomotion to prevent apex-on-landing.");
+                        animator.Play("Locomotion");
+                    }
+                }
                 return;
             }
         }
 
         // Если луч ничего не нашел или угол слишком крутой, мы в воздухе.
+        if (isGrounded)
+        {
+            lastLeftGroundTime = Time.time;
+        }
         isGrounded = false;
         currentInertia = defaultInertia;
     }
@@ -241,7 +268,36 @@ public class PlayerController : MonoBehaviour
     {
         float speedValue = isSprinting ? 1.0f : moveInput.magnitude * 0.5f;
         animator.SetFloat("Speed", speedValue, 0.1f, Time.deltaTime);
-        animator.SetBool("IsGrounded", isGrounded);
+        // Update animator only when grounded state changes and avoid rapid duplicate landings
+        bool currentAnimatorGrounded = animator.GetBool("IsGrounded");
+        if (currentAnimatorGrounded != isGrounded)
+        {
+            // if we are landing, ensure we were actually in air for a minimum time or suppression is not active
+            if (isGrounded)
+            {
+                if (suppressFallingReentry)
+                {
+                    Debug.Log("[Animator Debug] Suppressing landing animation due to recent double-jump/bounce.");
+                    // do not set animator flag now; it will be set in GroundCheck when appropriate
+                }
+                else if (Time.time - lastLeftGroundTime < minAirTimeForLanding)
+                {
+                    // tiny airtime — still set it but log for diagnosis
+                    Debug.Log($"[Animator Debug] Quick landing (air time {Time.time - lastLeftGroundTime:f3}s). Setting IsGrounded.");
+                    animator.SetBool("IsGrounded", true);
+                }
+                else
+                {
+                    animator.SetBool("IsGrounded", true);
+                }
+            }
+            else
+            {
+                animator.SetBool("IsGrounded", false);
+            }
+        }
+
+        prevIsGrounded = isGrounded;
     }
 
     private void CheckInteractionFocus()
