@@ -5,7 +5,7 @@
     flex-grow: 1;
     justify-content: center;
     align-items: center;
-    background-color: rgb(20, 20, 30);
+    background-color:rgb(59, 130, 246);
 }
 
 /* Панель настроек */
@@ -15,7 +15,7 @@
     background-color: rgb(30, 30, 40);
     border-radius: 20px;
     border-width: 2px;
-    border-color: rgb(50, 50, 60);
+    border-color: rgb(59, 130, 246);
 }
 
 /* Общий стиль полей (слайдеры, дропдауны) */
@@ -27,7 +27,7 @@
 /* Лейблы полей */
 .unity-base-field__label {
     font-size: 20px;
-    color: rgb(251, 191, 36); /* yellow */
+    color: rgba(11, 29, 96, 1);
     min-width: 200px;
     -unity-font-style: bold;
 }
@@ -56,12 +56,12 @@
 
 /* Выпадающий список */
 #quality-dropdown .unity-base-field__input {
-    background-color: rgb(50, 50, 60);
+    background-color: rgba(192, 208, 255, 1)
     border-width: 2px;
-    border-color: rgb(80, 80, 90);
+    border-color: rgb(59, 130, 246);
     border-radius: 10px;
     padding: 5px;
-    color: white;
+    color: rgba(11, 29, 96, 1);
     font-size: 16px;
 }
 
@@ -88,7 +88,7 @@
 
 /* Фон для контейнера */
 #container {
-    background-color: rgb(25, 25, 35);
+    background-color: rgb(59, 130, 246);
     border-radius: 10px;
     padding: 20px;
 }

@@ -1,9 +1,9 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/SettingsMenu.uss?fileID=7433441132597879392&amp;guid=07626543ee178b560ae1871a8920a659&amp;type=3#SettingsMenu" />
-    <ui:VisualElement name="container" style="flex-grow: 1;">
+    <ui:VisualElement name="container" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/fone_mainMenu.jpg?fileID=2800000&amp;guid=fc85e7e6d6c619903b2dd3411dba8cff&amp;type=3#fone_mainMenu&quot;);">
         <ui:Slider label="Музыка" value="70" high-value="100" name="music-volume-slider" />
         <ui:Slider label="Звуки игры" value="70" high-value="100" name="sfx-volume-slider" />
-        <ui:DropdownField label="Dropdown" name="quality-dropdown" />
+        <ui:DropdownField label=" Качество" name="quality-dropdown" />
         <ui:Button text="Назад" name="back-button" />
     </ui:VisualElement>
 </ui:UXML>

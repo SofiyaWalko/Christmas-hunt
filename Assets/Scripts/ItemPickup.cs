@@ -29,7 +29,7 @@ public class ItemPickup : PickupBase, IInteractable
                     InventoryUIController.Instance.ShowNotification(
                         "Вы разблокировали двойной прыжок (двойное нажатие на пробел) и можете бросаться снежками (нажатие на ЛКМ)!",
                         $"Вы подобрали {itemData.itemName}!",
-                        3f
+                        10f
                     );
                 }
 
@@ -40,7 +40,8 @@ public class ItemPickup : PickupBase, IInteractable
 
         if (itemData.itemName == "Последний подарок")
         {
-            InventoryUIController.Instance.ShowNotification("Ура вы победили", "Победа!");
+            StartCoroutine(LoadMainMenuDelayed());
+            return;
         }
 
         MarkAsCollected();
@@ -62,5 +63,22 @@ public class ItemPickup : PickupBase, IInteractable
             "Location_2"
         );
         Destroy(gameObject);
+    }
+
+    private System.Collections.IEnumerator LoadMainMenuDelayed()
+    {
+        MarkAsCollected();
+        GetComponent<Collider>().enabled = false;
+        var renderer = GetComponent<Renderer>();
+        if (renderer != null)
+            renderer.enabled = false;
+
+        if (InventoryUIController.Instance != null)
+        {
+            InventoryUIController.Instance.ShowNotification("Ура вы победили", "Победа!");
+        }
+
+        yield return new WaitForSeconds(3f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }

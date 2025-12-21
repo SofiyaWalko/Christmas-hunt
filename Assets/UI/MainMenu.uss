@@ -1,11 +1,11 @@
 /* MainMenu.uss */
 
 /* Фон всего меню */
-.root {
+.root {    
     flex-grow: 1;
     justify-content: center;
     align-items: center;
-    background-color: rgb(20, 20, 30);
+    background-color: rgba(153, 153, 221, 1);
 }
 
 /* Стиль для меню загрузки */
@@ -20,7 +20,7 @@
 }
 
 /* Контейнер для кнопок */
-#menu-container {
+#menu-container {    
     width: 100%;
     padding: 30px;
     background-color: rgb(40, 40, 50);
@@ -36,7 +36,7 @@ Button {
     font-size: 24px;
     -unity-font-style: bold;
     color: white;
-    background-color: rgb(28, 40, 68); /* dark blue base */
+    background-color: rgba(42, 95, 211, 1); /* dark blue base */
     border-width: 2px;
     border-color: rgb(59, 130, 246); /* bright blue accent */
     border-radius: 25px;
@@ -45,27 +45,28 @@ Button {
 
 /* Эффект наведения */
 Button:hover {
-    background-color: rgb(59, 130, 246); /* blue on hover */
+    background-color:  rgba(59, 112, 226, 1); /* blue on hover */
     scale: 1.05;
     border-color: rgb(99, 179, 255);
+    cursor: pointer;
 }
 
 /* Эффект нажатия */
 Button:active {
-    background-color: rgb(50, 50, 60);
+    background-color: rgba(39, 89, 197, 1);
     scale: 0.95;
     color: rgb(200, 200, 210);
 }
 
-/* Особый стиль для кнопки выхода (оставляем красной) */
+/* Особый стиль для кнопки выхода */
 #quit-button {
     margin-top: 20px;
-    background-color: rgb(140, 50, 50);
-    border-color: rgb(160, 70, 70);
+    background-color: rgba(11, 29, 96, 1);
+    border-color: rgba(11, 29, 96, 1);
 }
 
 #quit-button:hover {
-    background-color: rgb(170, 60, 60);
+    background-color:rgba(18, 41, 123, 1);
 }
 
 /* Фон для контейнера */

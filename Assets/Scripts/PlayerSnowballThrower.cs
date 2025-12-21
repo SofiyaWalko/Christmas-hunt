@@ -83,12 +83,6 @@ public class PlayerSnowballThrower : MonoBehaviour
             return;
         }
 
-        // Проверяем, что курсор не находится над UI Toolkit элементом
-        if (IsPointerOverUIToolkit())
-        {
-            return; // Не стреляем, если курсор над UI
-        }
-
         // Проверяем кулдаун
         if (Time.time - lastShootTime < shootingCooldown)
             return;
@@ -145,51 +139,5 @@ public class PlayerSnowballThrower : MonoBehaviour
         lastShootTime = Time.time;
 
         Debug.Log("Игрок выстрелил снежком!");
-    }
-
-    /// <summary>
-    /// Проверяет, находится ли курсор мыши над UI Toolkit элементом
-    /// </summary>
-    private bool IsPointerOverUIToolkit()
-    {
-        // Находим все UIDocument компоненты в сцене
-        UIDocument[] uiDocuments = FindObjectsOfType<UIDocument>();
-        
-        Vector2 mousePosition = Mouse.current.position.ReadValue();
-        
-        foreach (UIDocument uiDoc in uiDocuments)
-        {
-            if (uiDoc.rootVisualElement != null && uiDoc.gameObject.activeInHierarchy)
-            {
-                // Проверяем, видимо ли UI (не скрыто через DisplayStyle.None)
-                if (uiDoc.rootVisualElement.style.display.value == DisplayStyle.None)
-                {
-                    continue;
-                }
-                
-                // Конвертируем позицию мыши в координаты UI Toolkit
-                Vector2 localPoint = RuntimePanelUtils.ScreenToPanel(
-                    uiDoc.rootVisualElement.panel,
-                    mousePosition
-                );
-                
-                // Проверяем, есть ли элемент под этой позицией
-                VisualElement elementUnderPointer = uiDoc.rootVisualElement.panel.Pick(localPoint);
-                
-                // Проверяем, что элемент не только существует, но и интерактивен
-                if (elementUnderPointer != null && elementUnderPointer != uiDoc.rootVisualElement)
-                {
-                    // Дополнительно проверяем, что элемент видимый и включенный
-                    if (elementUnderPointer.style.display.value != DisplayStyle.None &&
-                        elementUnderPointer.visible &&
-                        elementUnderPointer.enabledSelf)
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-        
-        return false;
     }
 }
