@@ -32,21 +32,12 @@ public static class SaveMenuUIHelper
             if (saveData == null)
                 continue;
 
-            var slot = CreateSaveSlot(
-                filename,
-                saveData,
-                () => PopulateSaveList(container, isSaveMenu, onBack)
-            );
-            target.Add(slot);
+            var slot = CreateSaveSlot(filename, saveData, () => PopulateSaveList(container, isSaveMenu, onBack, onLoad), onLoad, isSaveMenu);
+            container.Add(slot);
         }
     }
 
-    private static VisualElement CreateSaveSlot(
-        string filename,
-        SaveData data,
-        Action onRefresh,
-        Action onLoad
-    )
+    private static VisualElement CreateSaveSlot(string filename, SaveData data, Action onRefresh, Action onLoad)
     {
         var container = new VisualElement();
         container.AddToClassList("save-slot");
@@ -61,12 +52,15 @@ public static class SaveMenuUIHelper
         var buttonsContainer = new VisualElement();
         buttonsContainer.AddToClassList("save-buttons");
 
-        var loadBtn = new Button(() => {
-            SaveManager.Instance.LoadGame(filename, onLoad);
-        });
-        loadBtn.text = "Загрузить";
-        loadBtn.AddToClassList("save-button");
-        buttonsContainer.Add(loadBtn);
+        if (!isSaveMenu)
+        {
+            var loadBtn = new Button(() => {
+                SaveManager.Instance.LoadGame(filename, onLoad);
+            });
+            loadBtn.text = "Загрузить";
+            loadBtn.AddToClassList("save-button");
+            buttonsContainer.Add(loadBtn);
+        }
 
         var delBtn = new Button(() =>
         {

@@ -62,6 +62,36 @@ public class PauseMenuController : MonoBehaviour
         if (quitButton != null)
             quitButton.clicked += QuitGame;
 
+        // --- ЛОГИКА КНОПКИ "НОВАЯ ИГРА" ---
+        var newGameButton = _root.Q<Button>("new-game-button");
+        // Если кнопки нет в UI, создаем её программно (копируя стиль кнопки выхода)
+        if (newGameButton == null && quitButton != null)
+        {
+            newGameButton = new Button();
+            newGameButton.name = "new-game-button";
+            newGameButton.text = "Новая игра";
+            // Копируем классы стилей
+            foreach (var cls in quitButton.GetClasses()) newGameButton.AddToClassList(cls);
+            
+            // Принудительно центрируем кнопку
+            newGameButton.style.alignSelf = Align.Center;
+
+            // Вставляем перед кнопкой выхода
+            if (quitButton.parent != null)
+            {
+                int index = quitButton.parent.IndexOf(quitButton);
+                quitButton.parent.Insert(index, newGameButton);
+            }
+        }
+
+        if (newGameButton != null)
+        {
+            newGameButton.clicked += StartNewGame;
+            // Скрываем по умолчанию (показываем только при смерти)
+            newGameButton.style.display = DisplayStyle.None;
+        }
+        // ----------------------------------
+
         // Попытка найти кнопку рестарта, если она есть в UI (например, добавленная для экрана смерти)
         var restartButton = _root.Q<Button>("restart-button");
         if (restartButton != null)
@@ -71,10 +101,22 @@ public class PauseMenuController : MonoBehaviour
         _root.style.display = DisplayStyle.None;
     }
 
+    private void StartNewGame()
+    {
+        Time.timeScale = 1f;
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.ClearSessionData();
+            SaveManager.Instance.isLoadingFromSave = false;
+        }
+        SceneManager.LoadScene("LoadingScreen");
+    }
+
     private void ShowDeathMenu()
     {
         _isDead = true;
         _root.style.display = DisplayStyle.Flex;
+        _root.style.visibility = Visibility.Visible;
         Time.timeScale = 0f;
         _isPaused = true;
 
@@ -85,6 +127,10 @@ public class PauseMenuController : MonoBehaviour
         // Скрываем кнопку "Сохранить игру"
         var saveButton = _root.Q<Button>("save-button");
         if (saveButton != null) saveButton.style.display = DisplayStyle.None;
+
+        // Показываем кнопку "Новая игра"
+        var newGameButton = _root.Q<Button>("new-game-button");
+        if (newGameButton != null) newGameButton.style.display = DisplayStyle.Flex;
 
         // Показываем надпись "ВЫ ПОГИБЛИ"
         var deathLabel = _root.Q<Label>("death-label");
@@ -301,6 +347,9 @@ public class PauseMenuController : MonoBehaviour
 
         var saveButton = _root.Q<Button>("save-button");
         if (saveButton != null) saveButton.style.display = DisplayStyle.Flex;
+
+        var newGameButton = _root.Q<Button>("new-game-button");
+        if (newGameButton != null) newGameButton.style.display = DisplayStyle.None;
 
         var deathLabel = _root.Q<Label>("death-label");
         if (deathLabel != null) deathLabel.style.display = DisplayStyle.None;

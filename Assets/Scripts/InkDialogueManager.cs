@@ -120,11 +120,30 @@ public class InkDialogueManager : MonoBehaviour
         {
             string text = inkStory.Continue();
 
-            // Парсим цвета ДО показа
-            text = ParseColors(text.Trim());
-            if (!string.IsNullOrEmpty(text))
+            // Извлекаем имя персонажа из тегов Ink
+            string speakerName = ExtractSpeakerFromTags();
+            
+            // Парсим имя из текста (формат "Имя: текст")
+            string parsedText = ParseSpeakerName(text.Trim(), out string textSpeaker);
+            
+            // Используем имя из текста, если есть, иначе из тегов
+            if (!string.IsNullOrEmpty(textSpeaker))
             {
-                RefreshUI(text);
+                speakerName = textSpeaker;
+            }
+            
+            // Обновляем имя персонажа
+            if (!string.IsNullOrEmpty(speakerName) && characterName != null)
+            {
+                characterName.text = speakerName;
+            }
+
+            // Парсим цвета
+            parsedText = ParseColors(parsedText);
+            
+            if (!string.IsNullOrEmpty(parsedText))
+            {
+                RefreshUI(parsedText);
             }
             else
             {
@@ -212,6 +231,49 @@ public class InkDialogueManager : MonoBehaviour
         };
         btn.AddToClassList("ink-choice-button");
         choicesContainer.Add(btn);
+    }
+
+    private string ExtractSpeakerFromTags()
+    {
+        if (inkStory == null || inkStory.currentTags == null || inkStory.currentTags.Count == 0)
+        {
+            return null;
+        }
+
+        foreach (string tag in inkStory.currentTags)
+        {
+            if (tag.StartsWith("speaker:") || tag.StartsWith("спикер:"))
+            {
+                return tag.Substring(tag.IndexOf(':') + 1).Trim();
+            }
+        }
+
+        return null;
+    }
+
+    private string ParseSpeakerName(string text, out string speakerName)
+    {
+        speakerName = null;
+
+        // Проверяем формат "Имя: текст"
+        int colonIndex = text.IndexOf(':');
+        if (colonIndex > 0 && colonIndex < 30) // Имя обычно короткое
+        {
+            string possibleName = text.Substring(0, colonIndex).Trim();
+            
+            // Проверяем, что это не URL и не содержит странных символов
+            if (!possibleName.Contains("http") && 
+                !possibleName.Contains("/") && 
+                !possibleName.Contains("\\") &&
+                possibleName.Length > 0 &&
+                possibleName.Length < 30)
+            {
+                speakerName = possibleName;
+                return text.Substring(colonIndex + 1).Trim();
+            }
+        }
+
+        return text;
     }
 
     private string ParseColors(string text)

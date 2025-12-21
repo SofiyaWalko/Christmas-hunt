@@ -49,7 +49,12 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance;
 
+    // Toggle to enable or disable automatic saves on scene load
+    // Default is false to avoid accidental saves; PlayerController will enable it on first action.
+    public bool enableAutoSave = false;
+
     public bool sessionDoubleJumpUnlocked = false; // Persist across scenes in session
+    public bool isLoadingFromSave = false; // Flag to check if we are loading from a save
 
     private List<string> _collectedItemsSession = new List<string>();
     private Dictionary<string, NPCSaveData> _npcDataSession = new Dictionary<string, NPCSaveData>();
@@ -65,6 +70,8 @@ public class SaveManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        // Ensure auto-save is disabled at startup unless explicitly enabled during gameplay
+        enableAutoSave = false;
     }
 
     private void OnEnable()
@@ -79,7 +86,12 @@ public class SaveManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Location_2")
+        // Не сохраняем игру автоматически, если мы сейчас в процессе загрузки сохранения
+        if (isLoadingFromSave) return;
+
+        // Auto-save is optional and guarded by `enableAutoSave`.
+        // Keep the code for reference; disable by default to avoid premature saves.
+        if (enableAutoSave && scene.name == "Location_2")
         {
             Debug.Log("Auto-saving on entering Location_2...");
             SaveGame();
@@ -99,7 +111,8 @@ public class SaveManager : MonoBehaviour
             data.positionX = player.transform.position.x;
             data.positionY = player.transform.position.y;
             data.positionZ = player.transform.position.z;
-            data.doubleJumpUnlocked = player.IsDoubleJumpUnlocked();
+            // Используем sessionDoubleJumpUnlocked, так как PlayerController.Start() мог еще не отработать
+            data.doubleJumpUnlocked = sessionDoubleJumpUnlocked; 
         }
 
         if (stats != null)
@@ -197,6 +210,7 @@ public class SaveManager : MonoBehaviour
 
     public void LoadGame(string saveFileName, System.Action onComplete = null)
     {
+        isLoadingFromSave = true;
         string path = Path.Combine(Application.persistentDataPath, saveFileName);
         if (!File.Exists(path))
         {
@@ -295,6 +309,7 @@ public class SaveManager : MonoBehaviour
 
         if (player != null)
         {
+            Debug.Log($"[SaveManager] Restoring player state. DoubleJump: {data.doubleJumpUnlocked}");
             CharacterController cc = player.GetComponent<CharacterController>();
             if (cc != null)
                 cc.enabled = false;
@@ -305,6 +320,10 @@ public class SaveManager : MonoBehaviour
 
             if (cc != null)
                 cc.enabled = true;
+        }
+        else
+        {
+            Debug.LogError("[SaveManager] PlayerController not found during load!");
         }
 
         if (stats != null)
@@ -351,7 +370,18 @@ public class SaveManager : MonoBehaviour
         }
 
         Debug.Log("Game Loaded!");
+        // isLoadingFromSave = false; // НЕ СБРАСЫВАЕМ ЗДЕСЬ!
         onComplete?.Invoke();
+        
+        // Сбрасываем флаг с задержкой, чтобы другие скрипты (например, катсцена) успели его прочитать в Start()
+        StartCoroutine(ResetLoadingFlag());
+    }
+
+    private IEnumerator ResetLoadingFlag()
+    {
+        yield return null; // Ждем один кадр
+        yield return null; // Ждем еще один на всякий случай
+        isLoadingFromSave = false;
     }
 
     public void MarkAsCollected(string id)
