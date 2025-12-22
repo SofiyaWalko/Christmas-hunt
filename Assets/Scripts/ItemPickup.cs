@@ -24,15 +24,6 @@ public class ItemPickup : PickupBase, IInteractable
                     player.UnlockDoubleJump();
                 }
 
-                if (InventoryUIController.Instance != null)
-                {
-                    InventoryUIController.Instance.ShowNotification(
-                        "Вы разблокировали двойной прыжок (двойное нажатие на пробел) и можете бросаться снежками (нажатие на ЛКМ)!",
-                        $"Вы подобрали {itemData.itemName}!",
-                        10f
-                    );
-                }
-
                 StartCoroutine(ShowVictoryNotificationDelayed());
                 return;
             }
@@ -56,12 +47,12 @@ public class ItemPickup : PickupBase, IInteractable
         if (renderer != null)
             renderer.enabled = false;
 
-        yield return new WaitForSeconds(3f);
         InventoryUIController.Instance.ShowVictoryNotification(
-            "Ура вы прошли первый уровень!",
+            "Вы разблокировали двойной прыжок (двойное нажатие на пробел) и можете бросаться снежками (нажатие на ЛКМ)!",
             "Победа!",
             "Location_2"
         );
+        yield return null;
         Destroy(gameObject);
     }
 
