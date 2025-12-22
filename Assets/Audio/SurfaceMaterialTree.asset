@@ -16,7 +16,7 @@ MonoBehaviour:
   physicMaterial: {fileID: 0}
   footstepClips:
   - {fileID: 8300000, guid: 478f68c7c1e0be6d6a8db7a0f8f05307, type: 3}
-  jumpClip: {fileID: 8300000, guid: 98c2e7a5d5e0fc461bc3e5a087557dfc, type: 3}
+  jumpClip: {fileID: 8300000, guid: ac1a12ed939c2de8ebd47e3841fb00f3, type: 3}
   footstepPitchMin: 0.9
   footstepPitchMax: 1.1
   volumeMultiplier: 1

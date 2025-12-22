@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class InkDialogueManager : MonoBehaviour
 {
     public static InkDialogueManager Instance { get; private set; }
+    public bool IsDialogueActive { get; private set; }
 
     [SerializeField]
     public TextAsset inkJSON;
@@ -57,6 +58,7 @@ public class InkDialogueManager : MonoBehaviour
 
     public void StartDialogue(TextAsset inkJSONAsset = null, int requiredStatCount = 0)
     {
+        IsDialogueActive = true;
         Debug.Log("=== StartDialogue вызван ===");
 
         TextAsset jsonToUse = inkJSONAsset != null ? inkJSONAsset : inkJSON;
@@ -291,6 +293,7 @@ public class InkDialogueManager : MonoBehaviour
 
     private void HideDialogue()
     {
+        IsDialogueActive = false;
         if (dialogueBox != null)
         {
             dialogueBox.style.display = DisplayStyle.None;

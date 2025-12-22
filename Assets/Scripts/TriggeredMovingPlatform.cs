@@ -8,26 +8,36 @@ public class TriggeredMovingPlatform : MonoBehaviour
 
     [HideInInspector] public bool isActive = false;
 
-    private Transform target;
+    private Vector3 worldPointA;
+    private Vector3 worldPointB;
+    private Vector3 targetPosition;
+    private bool movingToB = true;
 
     void Start()
     {
-        target = pointB;
+        if (pointA == null || pointB == null)
+        {
+            Debug.LogWarning("Point A or B is not assigned on " + gameObject.name);
+            enabled = false;
+            return;
+        }
+
+        worldPointA = pointA.position;
+        worldPointB = pointB.position;
+        movingToB = true;
+        targetPosition = worldPointB;
     }
 
     void Update()
     {
         if (!isActive) return;
 
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            target.position,
-            speed * Time.deltaTime
-        );
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-        if (Vector3.Distance(transform.position, target.position) < 0.2f)
+        if (Vector3.Distance(transform.position, targetPosition) < 0.2f)
         {
-            target = (target == pointA) ? pointB : pointA;
+            movingToB = !movingToB;
+            targetPosition = movingToB ? worldPointB : worldPointA;
         }
     }
 
