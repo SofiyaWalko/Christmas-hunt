@@ -2,10 +2,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using Unity.Cinemachine;
 
 public class InventoryUIController : MonoBehaviour
 {
     public static InventoryUIController Instance { get; private set; }
+    public bool IsModalOpen { get; private set; }
 
     private VisualElement inventoryPanel;
     private VisualElement slotsContainer;
@@ -20,6 +22,8 @@ public class InventoryUIController : MonoBehaviour
 
     private VisualElement interactHint;
     private Label interactText;
+
+    private CinemachineInputAxisController[] inputProviders;
 
     // Notification modal fields
     private VisualElement notificationOverlay;
@@ -83,6 +87,43 @@ public class InventoryUIController : MonoBehaviour
         {
             StartCoroutine(WaitForInventoryManager());
         }
+
+        inputProviders = FindObjectsOfType<CinemachineInputAxisController>();
+    }
+
+    private void Update()
+    {
+        bool shouldBlock = IsInputBlocked();
+        if (inputProviders != null)
+        {
+            foreach (var provider in inputProviders)
+            {
+                if (provider != null)
+                {
+                    provider.enabled = !shouldBlock;
+                }
+            }
+        }
+    }
+
+    private bool IsInputBlocked()
+    {
+        if (InkDialogueManager.Instance != null && InkDialogueManager.Instance.IsDialogueActive)
+        {
+            return true;
+        }
+
+        if (IsModalOpen)
+        {
+            return true;
+        }
+
+        if (inventoryPanel != null && inventoryPanel.style.display == DisplayStyle.Flex)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void ShowNotification(
@@ -91,6 +132,7 @@ public class InventoryUIController : MonoBehaviour
         float autoHideSeconds = 0f
     )
     {
+        IsModalOpen = true;
         // Lazy initialize notification elements if Start hasn't set them yet
         if (notificationOverlay == null)
         {
@@ -102,7 +144,6 @@ public class InventoryUIController : MonoBehaviour
                 notificationTitle = root.Q<Label>("notification-title");
                 notificationMessage = root.Q<Label>("notification-message");
                 notificationOk = root.Q<Button>("notification-ok");
-                notificationNextLevel = root.Q<Button>("notification-next-level");
 
                 if (notificationOk != null)
                     notificationOk.clicked += () => HideNotification();
@@ -120,9 +161,6 @@ public class InventoryUIController : MonoBehaviour
         if (notificationMessage != null)
             notificationMessage.text = message;
 
-        if (notificationNextLevel != null)
-            notificationNextLevel.style.display = DisplayStyle.None;
-
         // // Add class for USS-driven show, and set inline display as a fallback
         notificationOverlay.AddToClassList("show");
         notificationOverlay.style.display = DisplayStyle.Flex;
@@ -136,10 +174,10 @@ public class InventoryUIController : MonoBehaviour
     public void ShowVictoryNotification(string message, string title, string nextSceneName)
     {
         ShowNotification(message, title);
-        if (notificationNextLevel != null)
+        if (notificationOk != null)
         {
-            notificationNextLevel.style.display = DisplayStyle.Flex;
-            notificationNextLevel.clicked += () => {
+            notificationOk.text = "Следующий уровень";
+            notificationOk.clicked += () => {
                 // SaveManager.Instance.SaveGame(); // Auto-save moved to SaveManager OnSceneLoaded
                 SceneManager.LoadScene(nextSceneName);
                 HideNotification();
@@ -149,6 +187,7 @@ public class InventoryUIController : MonoBehaviour
 
     public void HideNotification()
     {
+        IsModalOpen = false;
         if (notificationOverlay == null)
             return;
 
