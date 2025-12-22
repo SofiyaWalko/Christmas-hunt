@@ -52,11 +52,19 @@ public class PlayerSoundController : MonoBehaviour
 
         if (_isMoving)
         {
-            _stepTimer += Time.deltaTime;
-            if (_stepTimer >= stepInterval)
+            if (!_wasMoving)
             {
                 PlayFootstep();
                 _stepTimer = 0;
+            }
+            else
+            {
+                _stepTimer += Time.deltaTime;
+                if (_stepTimer >= stepInterval)
+                {
+                    PlayFootstep();
+                    _stepTimer = 0;
+                }
             }
         }
         else
