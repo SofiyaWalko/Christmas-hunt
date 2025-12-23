@@ -37,7 +37,7 @@ public static class SaveMenuUIHelper
         }
     }
 
-    private static VisualElement CreateSaveSlot(string filename, SaveData data, Action onRefresh, Action onLoad)
+    private static VisualElement CreateSaveSlot(string filename, SaveData data, Action onRefresh, Action onLoad, bool isSaveMenu)
     {
         var container = new VisualElement();
         container.AddToClassList("save-slot");
