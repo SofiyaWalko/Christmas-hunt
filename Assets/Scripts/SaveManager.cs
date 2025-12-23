@@ -71,7 +71,7 @@ public class SaveManager : MonoBehaviour
             Destroy(gameObject);
         }
         // Ensure auto-save is disabled at startup unless explicitly enabled during gameplay
-        enableAutoSave = false;
+        enableAutoSave = true;
     }
 
     private void OnEnable()
@@ -93,9 +93,17 @@ public class SaveManager : MonoBehaviour
         // Keep the code for reference; disable by default to avoid premature saves.
         if (enableAutoSave && scene.name == "Location_2")
         {
-            Debug.Log("Auto-saving on entering Location_2...");
-            SaveGame();
+            StartCoroutine(AutoSaveDelayed());
         }
+    }
+
+    private IEnumerator AutoSaveDelayed()
+    {
+        // Ждем один кадр, чтобы методы Start() у NPC успели отработать и инициализировать здоровье
+        yield return null;
+        
+        Debug.Log("Auto-saving on entering Location_2...");
+        SaveGame();
     }
 
     public void SaveGame()
