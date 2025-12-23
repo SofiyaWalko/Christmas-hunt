@@ -2580,7 +2580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatefulAI
   npcType: 1
-  id: d8bb1487-f7e1-472f-9346-0b28f7530c5f
+  id: 3e0549d8-6417-4a6c-a414-e6e6b501844e
   awarenessRange: 5
   interactionDistance: 2.5
   patrolPoints: []
