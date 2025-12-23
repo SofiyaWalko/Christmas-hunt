@@ -5,14 +5,19 @@ using UnityEngine.UIElements;
 
 public static class SaveMenuUIHelper
 {
-    public static void PopulateSaveList(VisualElement container, bool isSaveMenu, Action onBack, Action onLoad)
+    public static void PopulateSaveList(
+        VisualElement container,
+        bool isSaveMenu,
+        Action onBack,
+        Action onLoad
+    )
     {
         container.Clear();
 
-        // Add Back Button at the top or bottom? 
+        // Add Back Button at the top or bottom?
         // The UXML doesn't have a back button slot, so we'll add it to the container or assume the parent handles it.
         // But for the list itself:
-        
+
         List<string> saves = SaveManager.Instance.GetAllSaveFiles();
         saves.Sort();
         saves.Reverse();
@@ -24,7 +29,8 @@ public static class SaveMenuUIHelper
         foreach (var filename in saves)
         {
             var saveData = SaveManager.Instance.GetSaveData(filename);
-            if (saveData == null) continue;
+            if (saveData == null)
+                continue;
 
             var slot = CreateSaveSlot(filename, saveData, () => PopulateSaveList(container, isSaveMenu, onBack, onLoad), onLoad, isSaveMenu);
             container.Add(slot);
@@ -56,7 +62,8 @@ public static class SaveMenuUIHelper
             buttonsContainer.Add(loadBtn);
         }
 
-        var delBtn = new Button(() => {
+        var delBtn = new Button(() =>
+        {
             SaveManager.Instance.DeleteSave(filename);
             onRefresh?.Invoke();
         });
